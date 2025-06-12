@@ -9,6 +9,7 @@
             Console.WriteLine("\t\t*******************************************");
             Console.WriteLine("\t\t*        Q -> Quit");
             Console.WriteLine("\t\t*        C -> Connect");
+            Console.WriteLine("\t\t*        S -> Sewnd");
             Console.WriteLine("\t\t*        D -> Drop");
             Console.WriteLine("\t\t*******************************************");
         }
@@ -40,6 +41,11 @@
                     {
                         Console.WriteLine("\tDrop");
                         client.Drop();
+                    }
+                    else if (input == "S")
+                    {
+                        Console.WriteLine("\tSend");
+                        client.Send();
                     }
                 }
 

@@ -45,6 +45,20 @@ namespace Test01
             }
         }
 
+        public void Send()
+        {
+            if (m_csocket != null)
+            {
+                string message = "Hello, Server!";
+                byte[] data = Encoding.UTF8.GetBytes(message);
+                m_csocket.Send(data);
+                Console.WriteLine("Sent: {0}", message);
+            }
+            else
+            {
+                Console.WriteLine("Client is not connected");
+            }
+        }
         public void Drop()
         {
             if(m_csocket != null)
