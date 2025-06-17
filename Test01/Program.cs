@@ -9,7 +9,11 @@
             Console.WriteLine("\t\t*******************************************");
             Console.WriteLine("\t\t*        Q -> Quit");
             Console.WriteLine("\t\t*        C -> Connect");
-            Console.WriteLine("\t\t*        S -> Sewnd");
+            Console.WriteLine("\t\t*        1 -> Send1");
+            Console.WriteLine("\t\t*        2 -> Send2");
+            Console.WriteLine("\t\t*        3 -> Send3a");
+            Console.WriteLine("\t\t*        e -> Send3b");
+            Console.WriteLine("\t\t*        4 -> Send4");
             Console.WriteLine("\t\t*        D -> Drop");
             Console.WriteLine("\t\t*******************************************");
         }
@@ -42,10 +46,30 @@
                         Console.WriteLine("\tDrop");
                         client.Drop();
                     }
-                    else if (input == "S")
+                    else if (input == "1")
                     {
-                        Console.WriteLine("\tSend");
-                        client.Send();
+                        Console.WriteLine("\tSend1");
+                        client.Send1();
+                    }
+                    else if (input == "2")
+                    {
+                        Console.WriteLine("\tSend2");
+                        client.Send2();
+                    }
+                    else if (input == "3")
+                    {
+                        Console.WriteLine("\tSend3a");
+                        client.Send3a();
+                    }
+                    else if (input == "e")
+                    {
+                        Console.WriteLine("\tSend3b");
+                        client.Send3b();
+                    }
+                    else if (input == "4")
+                    {
+                        Console.WriteLine("\tSend4");
+                        client.Send4();
                     }
                 }
 
