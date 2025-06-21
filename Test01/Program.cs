@@ -9,6 +9,7 @@
             Console.WriteLine("\t\t*******************************************");
             Console.WriteLine("\t\t*        Q -> Quit");
             Console.WriteLine("\t\t*        L -> Scenario1");
+            Console.WriteLine("\t\t*        K -> Scenario2");
             if (client.IsConnected)
             {
                 Console.WriteLine("\t\t*        R -> Reconnect");
@@ -84,6 +85,12 @@
 
                         scenario1(_IP, _Port);
                     }
+                    else if (input == "K")
+                    {
+                        Console.WriteLine("Scenario2");
+
+                        scenario2(_IP, _Port);
+                    }
 
                     else if (input == "1")
                     {
@@ -153,9 +160,11 @@
             quitEvent.WaitOne(-1);
         }
 
+
+
         static void scenario1(string _IP, int _Port)
         {
-            for(int i=1; i<=40; i++)
+            for(int i=1; i<=80; i++)
             {
                 try
                 {
@@ -165,24 +174,24 @@
                     var client1 = new IoTClient(_IP, _Port, quitEvent);
                     client1.Connect();
 
-                    Thread.Sleep(100);
+                    Thread.Sleep(60);
                     var client2 = new IoTClient(_IP, _Port, quitEvent);
                     client2.Connect();
 
 
-                    Thread.Sleep(120);
+                    Thread.Sleep(80);
                     var client3 = new IoTClient(_IP, _Port, quitEvent);
                     client3.Connect();
 
-                    Thread.Sleep(140);
+                    Thread.Sleep(80);
                     var client4 = new IoTClient(_IP, _Port, quitEvent);
                     client4.Connect();
 
-                    Thread.Sleep(160);
+                    Thread.Sleep(100);
                     var client5 = new IoTClient(_IP, _Port, quitEvent);
                     client5.Connect();
 
-                    Thread.Sleep(400);
+                    Thread.Sleep(200);
                     client1.Stop();
                     client2.Stop();
                     client3.Stop();
@@ -192,6 +201,73 @@
                 catch(Exception ex)
                 {
 
+                }
+            }
+        }
+
+
+
+        static void scenario2(string _IP, int _Port)
+        {
+            var quitEvent = new ManualResetEvent(false);
+            var client1 = new IoTClient(_IP, _Port, quitEvent);
+            var client2 = new IoTClient(_IP, _Port, quitEvent);
+            var client3 = new IoTClient(_IP, _Port, quitEvent);
+            var client4 = new IoTClient(_IP, _Port, quitEvent);
+            var client5 = new IoTClient(_IP, _Port, quitEvent);
+            var client6 = new IoTClient(_IP, _Port, quitEvent);
+            var client7 = new IoTClient(_IP, _Port, quitEvent);
+            var client8 = new IoTClient(_IP, _Port, quitEvent);
+            var client9 = new IoTClient(_IP, _Port, quitEvent);
+            var client10 = new IoTClient(_IP, _Port, quitEvent);
+
+
+            for (int i = 1; i <= 260; i++)
+            {
+                try
+                {
+                    client1.Connect();
+                    Thread.Sleep(100);
+                    client2.Connect();
+                    Thread.Sleep(100);
+
+                    client1.Stop();
+                    client3.Connect();
+                    Thread.Sleep(50);
+
+                    client2.Stop();
+                    client4.Connect();
+                    Thread.Sleep(50);
+
+                    client3.Stop();
+                    client5.Connect();
+                    Thread.Sleep(50);
+
+
+                    client4.Stop();
+                    client6.Connect();
+
+                    client5.Stop();
+                    client7.Connect();
+
+
+                    client6.Stop();
+                    client8.Connect();
+
+
+                    client7.Stop();
+                    client9.Connect();
+                    client10.Connect();
+
+                    client8.Stop();
+                    client9.Stop();
+                    client10.Stop();
+
+                    Thread.Sleep(100);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
