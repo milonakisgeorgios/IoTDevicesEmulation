@@ -289,7 +289,7 @@ namespace Test01
                     {
                         Console.WriteLine("Received 0 bytes!");
 
-                        //break;
+                        break;
                     }
                 }
             }
