@@ -8,8 +8,10 @@
             Console.WriteLine();
             Console.WriteLine("\t\t*******************************************");
             Console.WriteLine("\t\t*        Q -> Quit");
-            if(client.IsConnected)
+            Console.WriteLine("\t\t*        L -> Scenario1");
+            if (client.IsConnected)
             {
+                Console.WriteLine("\t\t*        R -> Reconnect");
                 Console.WriteLine("\t\t*        D -> Drop");
             }
             else
@@ -29,8 +31,11 @@
         }
         static void Main(string[] args)
         {
+            string _IP = "192.168.1.6";
+            int _Port = 5122;
+
             var quitEvent = new ManualResetEvent(false);
-            var client = new IoTClient("192.168.1.6", 5122, quitEvent);
+            var client = new IoTClient(_IP, _Port, quitEvent);
 
             Task.Factory.StartNew(() => {
 
@@ -64,6 +69,20 @@
                         {
                             client.Stop();
                         }
+                    }
+                    else if (input == "R")
+                    {
+                        Console.WriteLine("Reconnect");
+                        var client2 = new IoTClient(_IP, _Port, quitEvent);
+                        client2.Connect();
+
+                        client = client2;
+                    }
+                    else if (input == "L")
+                    {
+                        Console.WriteLine("Scenario1");
+
+                        scenario1(_IP, _Port);
                     }
 
                     else if (input == "1")
@@ -132,6 +151,49 @@
 
 
             quitEvent.WaitOne(-1);
+        }
+
+        static void scenario1(string _IP, int _Port)
+        {
+            for(int i=1; i<=40; i++)
+            {
+                try
+                {
+                    var quitEvent = new ManualResetEvent(false);
+
+
+                    var client1 = new IoTClient(_IP, _Port, quitEvent);
+                    client1.Connect();
+
+                    Thread.Sleep(100);
+                    var client2 = new IoTClient(_IP, _Port, quitEvent);
+                    client2.Connect();
+
+
+                    Thread.Sleep(120);
+                    var client3 = new IoTClient(_IP, _Port, quitEvent);
+                    client3.Connect();
+
+                    Thread.Sleep(140);
+                    var client4 = new IoTClient(_IP, _Port, quitEvent);
+                    client4.Connect();
+
+                    Thread.Sleep(160);
+                    var client5 = new IoTClient(_IP, _Port, quitEvent);
+                    client5.Connect();
+
+                    Thread.Sleep(400);
+                    client1.Stop();
+                    client2.Stop();
+                    client3.Stop();
+                    client4.Stop();
+                    client5.Stop();
+                }
+                catch(Exception ex)
+                {
+
+                }
+            }
         }
     }
 }
