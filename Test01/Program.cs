@@ -246,20 +246,27 @@
 
                     client4.Stop();
                     client6.Connect();
+                    Thread.Sleep(50);
 
                     client5.Stop();
                     client7.Connect();
+                    Thread.Sleep(50);
 
 
                     client6.Stop();
                     client8.Connect();
+                    Thread.Sleep(50);
 
 
                     client7.Stop();
                     client9.Connect();
-                    client10.Connect();
+                    Thread.Sleep(50);
 
                     client8.Stop();
+                    client10.Connect();
+                    Thread.Sleep(50);
+
+
                     client9.Stop();
                     client10.Stop();
 
