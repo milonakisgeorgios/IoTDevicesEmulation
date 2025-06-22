@@ -227,50 +227,50 @@
                 try
                 {
                     client1.Connect();
-                    Thread.Sleep(80);
+                    Thread.Sleep(150);
                     client2.Connect();
-                    Thread.Sleep(80);
+                    Thread.Sleep(150);
 
                     client1.Stop();
                     client3.Connect();
-                    Thread.Sleep(80);
+                    Thread.Sleep(150);
 
                     client2.Stop();
                     client4.Connect();
-                    Thread.Sleep(80);
+                    Thread.Sleep(150);
 
                     client3.Stop();
                     client5.Connect();
-                    Thread.Sleep(80);
+                    Thread.Sleep(150);
 
 
                     client4.Stop();
                     client6.Connect();
-                    Thread.Sleep(80);
+                    Thread.Sleep(150);
 
                     client5.Stop();
                     client7.Connect();
-                    Thread.Sleep(80);
+                    Thread.Sleep(150);
 
 
                     client6.Stop();
                     client8.Connect();
-                    Thread.Sleep(80);
+                    Thread.Sleep(150);
 
 
                     client7.Stop();
                     client9.Connect();
-                    Thread.Sleep(80);
+                    Thread.Sleep(150);
 
                     client8.Stop();
                     client10.Connect();
-                    Thread.Sleep(80);
+                    Thread.Sleep(150);
 
 
                     client9.Stop();
-                    Thread.Sleep(80);
+                    Thread.Sleep(150);
                     client10.Stop();
-                    Thread.Sleep(80);
+                    Thread.Sleep(150);
                 }
                 catch (Exception ex)
                 {
