@@ -234,55 +234,55 @@ namespace Test01
             var client10 = new IoTClient(_IP, _Port, quitEvent);
 
 
-            for (int i = 1; i <= 260; i++)
+            for (int i = 1; i <= 400; i++)
             {
                 try
                 {
                     client1.Connect();
-                    wait();//Thread.Sleep(50);
+                    //wait();//Thread.Sleep(50);
                     client2.Connect();
-                    wait();//Thread.Sleep(50);
+                    //wait();//Thread.Sleep(50);
 
                     client1.Stop();
                     client3.Connect();
-                    wait();//Thread.Sleep(50);
+                    //wait();//Thread.Sleep(50);
 
                     client2.Stop();
                     client4.Connect();
-                    wait();//Thread.Sleep(50);
+                    //wait();//Thread.Sleep(50);
 
                     client3.Stop();
                     client5.Connect();
-                    wait();//Thread.Sleep(50);
+                    //wait();//Thread.Sleep(50);
 
 
                     client4.Stop();
                     client6.Connect();
-                    wait();//Thread.Sleep(50);
+                    //wait();//Thread.Sleep(50);
 
                     client5.Stop();
                     client7.Connect();
-                    wait();//Thread.Sleep(50);
+                    //wait();//Thread.Sleep(50);
 
 
                     client6.Stop();
                     client8.Connect();
-                    wait();//Thread.Sleep(50);
+                    //wait();//Thread.Sleep(50);
 
 
                     client7.Stop();
                     client9.Connect();
-                    wait();//Thread.Sleep(50);
+                    //wait();//Thread.Sleep(50);
 
                     client8.Stop();
                     client10.Connect();
-                    wait();//Thread.Sleep(50);
+                    //wait();//Thread.Sleep(50);
 
 
                     client9.Stop();
-                    wait();//Thread.Sleep(50);
+                    //wait();//Thread.Sleep(50);
                     client10.Stop();
-                    wait();//Thread.Sleep(50);
+                    //wait();//Thread.Sleep(50);
                 }
                 catch (Exception ex)
                 {
