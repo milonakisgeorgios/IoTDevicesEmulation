@@ -212,7 +212,7 @@ namespace Test01
             var stopwatch = Stopwatch.StartNew();
             var spinner = new SpinWait();
 
-            while (stopwatch.ElapsedMilliseconds < 10)
+            while (stopwatch.ElapsedMilliseconds < 5)
             {
                 spinner.SpinOnce();
             }
