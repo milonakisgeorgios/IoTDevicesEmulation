@@ -1,4 +1,6 @@
-﻿namespace Test01
+﻿using System.Diagnostics;
+
+namespace Test01
 {
     internal class Program
     {
@@ -205,7 +207,17 @@
             }
         }
 
+        static void wait()
+        {
+            var stopwatch = Stopwatch.StartNew();
+            var spinner = new SpinWait();
 
+            while (stopwatch.ElapsedMilliseconds < 10)
+            {
+                spinner.SpinOnce();
+            }
+
+        }
 
         static void scenario2(string _IP, int _Port)
         {
@@ -227,50 +239,50 @@
                 try
                 {
                     client1.Connect();
-                    Thread.Sleep(50);
+                    wait();//Thread.Sleep(50);
                     client2.Connect();
-                    Thread.Sleep(50);
+                    wait();//Thread.Sleep(50);
 
                     client1.Stop();
                     client3.Connect();
-                    Thread.Sleep(50);
+                    wait();//Thread.Sleep(50);
 
                     client2.Stop();
                     client4.Connect();
-                    Thread.Sleep(50);
+                    wait();//Thread.Sleep(50);
 
                     client3.Stop();
                     client5.Connect();
-                    Thread.Sleep(50);
+                    wait();//Thread.Sleep(50);
 
 
                     client4.Stop();
                     client6.Connect();
-                    Thread.Sleep(50);
+                    wait();//Thread.Sleep(50);
 
                     client5.Stop();
                     client7.Connect();
-                    Thread.Sleep(50);
+                    wait();//Thread.Sleep(50);
 
 
                     client6.Stop();
                     client8.Connect();
-                    Thread.Sleep(50);
+                    wait();//Thread.Sleep(50);
 
 
                     client7.Stop();
                     client9.Connect();
-                    Thread.Sleep(50);
+                    wait();//Thread.Sleep(50);
 
                     client8.Stop();
                     client10.Connect();
-                    Thread.Sleep(50);
+                    wait();//Thread.Sleep(50);
 
 
                     client9.Stop();
-                    Thread.Sleep(50);
+                    wait();//Thread.Sleep(50);
                     client10.Stop();
-                    Thread.Sleep(50);
+                    wait();//Thread.Sleep(50);
                 }
                 catch (Exception ex)
                 {
