@@ -239,50 +239,50 @@ namespace Test01
                 try
                 {
                     client1.Connect();
-                    //wait();//Thread.Sleep(50);
+                    Thread.Sleep(100);
                     client2.Connect();
-                    //wait();//Thread.Sleep(50);
+                    Thread.Sleep(100);
 
                     client1.Stop();
                     client3.Connect();
-                    //wait();//Thread.Sleep(50);
+                    Thread.Sleep(100);
 
                     client2.Stop();
                     client4.Connect();
-                    //wait();//Thread.Sleep(50);
+                    Thread.Sleep(100);
 
                     client3.Stop();
                     client5.Connect();
-                    //wait();//Thread.Sleep(50);
+                    Thread.Sleep(100);
 
 
                     client4.Stop();
                     client6.Connect();
-                    //wait();//Thread.Sleep(50);
+                    Thread.Sleep(100);
 
                     client5.Stop();
                     client7.Connect();
-                    //wait();//Thread.Sleep(50);
+                    Thread.Sleep(100);
 
 
                     client6.Stop();
                     client8.Connect();
-                    //wait();//Thread.Sleep(50);
+                    Thread.Sleep(100);
 
 
                     client7.Stop();
                     client9.Connect();
-                    //wait();//Thread.Sleep(50);
+                    Thread.Sleep(100);
 
                     client8.Stop();
                     client10.Connect();
-                    //wait();//Thread.Sleep(50);
+                    Thread.Sleep(100);
 
 
                     client9.Stop();
-                    //wait();//Thread.Sleep(50);
+                    Thread.Sleep(100);
                     client10.Stop();
-                    //wait();//Thread.Sleep(50);
+                    Thread.Sleep(100);
                 }
                 catch (Exception ex)
                 {
