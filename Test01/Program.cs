@@ -24,11 +24,30 @@ namespace Test01
 
             if(client.IsConnected)
             {
-                Console.WriteLine("\t\t*        1 -> Send1");
-                Console.WriteLine("\t\t*        2 -> Send2");
-                Console.WriteLine("\t\t*        3 -> Send3a");
-                Console.WriteLine("\t\t*        e -> Send3b");
-                Console.WriteLine("\t\t*        4 -> Send4");
+                Console.WriteLine("\t\t*        1 -> Send1a (One packet)");
+                Console.WriteLine("\t\t*        q -> Send1b (Two packets together)");
+                Console.WriteLine("\t\t*        a -> Send1c (Three packets together)");
+                Console.WriteLine("\t\t*        z -> Send1d (Four packets together)");
+                Console.WriteLine("\t\t*        2 -> Send2a (First)");
+                Console.WriteLine("\t\t*        w -> Send2b (Second Half)");
+                Console.WriteLine("\t\t*        3 -> Send3a (First)");
+                Console.WriteLine("\t\t*        e -> Send3b (Second)");
+                Console.WriteLine("\t\t*        4 -> Send4a (in parts)");
+                Console.WriteLine("\t\t*        5 -> Send5a (BAD CRC)");
+                Console.WriteLine("\t\t*        t -> Send5b (BAD CONTENT)");
+                Console.WriteLine("\t\t*        g -> Send5c (BAD DELIMITER)");
+                Console.WriteLine("\t\t*        b -> Send5d (BUFFER OVERFLOW)");
+
+                Console.WriteLine("\t\t*        6 -> del1");
+                Console.WriteLine("\t\t*        7 -> del2");
+                Console.WriteLine("\t\t*        8 -> del4");
+                Console.WriteLine("\t\t*        9 -> del5");
+                Console.WriteLine("\t\t*        0 -> del7");
+                Console.WriteLine("\t\t*        y -> del8");
+                Console.WriteLine("\t\t*        u -> del9");
+                Console.WriteLine("\t\t*        i -> del10a");
+                Console.WriteLine("\t\t*        o -> del10b");
+                Console.WriteLine("\t\t*        p -> del10c");
             }
             Console.WriteLine("\t\t*******************************************");
         }
@@ -98,26 +117,76 @@ namespace Test01
                     {
                         if(client.IsConnected)
                         {
-                            Console.WriteLine("\tSend1");
-                            client.Send1();
+                            Console.WriteLine("\nSend1a");
+                            client.Send1a();
                         }
                         else
                         {
                             Console.WriteLine("NOT_CONNECTED");
                         }
                     }
+                    else if (input == "Q")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\nSend1b");
+                            client.Send1b();
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+                    else if (input == "A")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\nSend1c");
+                            client.Send1c();
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+                    else if (input == "Z")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\nSend1d");
+                            client.Send1d();
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+
                     else if (input == "2")
                     {
                         if (client.IsConnected)
                         {
-                            Console.WriteLine("\tSend2");
-                            client.Send2();
+                            Console.WriteLine("\tSend2a");
+                            client.Send2a();
                         }
                         else
                         {
                             Console.WriteLine("NOT_CONNECTED");
                         }
                     }
+                    else if (input == "W")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\tSend2b");
+                            client.Send2b();
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+
                     else if (input == "3")
                     {
                         if (client.IsConnected)
@@ -142,12 +211,188 @@ namespace Test01
                             Console.WriteLine("NOT_CONNECTED");
                         }
                     }
+
+
                     else if (input == "4")
                     {
                         if (client.IsConnected)
                         {
-                            Console.WriteLine("\tSend4");
-                            client.Send4();
+                            Console.WriteLine("\tSend4a");
+                            client.Send4a();
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+
+
+                    else if (input == "5")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\tSend5a");
+                            client.Send5a();
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+                    else if (input == "T")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\tSend5b");
+                            client.Send5b();
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+                    else if (input == "G")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\tSend5c");
+                            client.Send5c();
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+                    else if (input == "B")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\nSend5d");
+                            client.Send5d();
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+
+
+                    else if (input == "6")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\ndel1");
+                            client.del(1);
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+                    else if (input == "7")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\ndel2");
+                            client.del(2);
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+                    else if (input == "8")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\ndel4");
+                            client.del(4);
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+                    else if (input == "9")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\ndel5");
+                            client.del(5);
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+                    else if (input == "0")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\ndel7");
+                            client.del(7);
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+                    else if (input == "Y")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\ndel8");
+                            client.del(8);
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+                    else if (input == "U")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\ndel9");
+                            client.del(9);
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+
+
+                    else if (input == "I")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\ndel10a");
+                            client.del(30);
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+                    else if (input == "O")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\ndel10b");
+                            client.del(31);
+                        }
+                        else
+                        {
+                            Console.WriteLine("NOT_CONNECTED");
+                        }
+                    }
+                    else if (input == "P")
+                    {
+                        if (client.IsConnected)
+                        {
+                            Console.WriteLine("\ndel10c");
+                            client.del(32);
                         }
                         else
                         {
