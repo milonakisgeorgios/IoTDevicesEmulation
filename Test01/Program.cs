@@ -130,7 +130,7 @@ namespace Test01
                             Console.WriteLine("NOT_CONNECTED");
                         }
                     }
-                    else if (input == "e")
+                    else if (input == "e" || input == "E")
                     {
                         if (client.IsConnected)
                         {
