@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            string directoryPath = @"C:\MyStore\Emphasis\IoTDevicesEmulation\TestFiles";
+            string directoryPath = @"D:\gmyl\PRD_LOGS\EmphasisServer_LAFARGEHOLCIM\ComServer\DeviceWorkers\IoTWorker\Logs";
 
             // Check if directory exists
             if (!Directory.Exists(directoryPath))
@@ -26,7 +26,7 @@
             // Iterate through each file
             foreach (string filePath in files)
             {
-                Console.WriteLine($"\nReading file: {filePath}");
+                Console.WriteLine($"Reading file: {filePath}");
                 try
                 {
                     // Read all lines from the file
@@ -36,9 +36,27 @@
                     // Print each line with line number
                     foreach (string line in lines)
                     {
-                        if (line[5] == '1')
-                            Console.WriteLine(line);
-                        lineNumber++;
+                        if (line == null)
+                            continue;
+                        if (line.Length < 6)
+                            continue;
+                        if (line.Contains("[Recv]") == false)
+                            continue;
+
+                        try
+                        {
+
+                            var idx = line.IndexOf("[Recv]\t[");
+                            var packet = line.Substring(idx + 8);
+                            packet = packet.Remove(packet.Length-1, 1);
+                            if (packet[5] == 'A' && packet.Length >97 )
+                                Console.WriteLine(packet);
+                            lineNumber++;
+                        }
+                        catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                     }
                 }
                 catch (IOException ex)

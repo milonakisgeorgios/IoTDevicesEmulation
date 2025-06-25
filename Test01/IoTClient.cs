@@ -369,6 +369,20 @@ namespace Test01
                 Console.WriteLine("Client is not connected");
             }
         }
+        public void Send1e()
+        {
+            if (m_csocket != null)
+            {
+                string message = "A93A0A559451680000002405609A5168B80C9E0DED0DF40D020EDA0D309B5168620C00DF9C435AAA3A045594516800012405000001ED39AB3A015594516800050001006273AC3A078094516800030027B5134205CDAD3A07809451680003018BE6A4C2FDA8AE3A0A919451680000002405609A5168B80C9E0DED0DF40D020EDA0D589B5168620C00DF9B54A0AF3A019194516800050001003202B03A04CD945168000124050000008B8CB23A01CD94516800050000006DAAB33A07F8945168000300FFC612422A16B43A07F89451680003018BE6A4C21CE7B53A0A099551680000002405609A5168B80C9E0DED0DF40D020EDA0DF89B5168620C00DF9B8517B63A040995516800012405000001B064B73A01099551680005000100AAAC";
+                byte[] data = Encoding.UTF8.GetBytes(message);
+                m_csocket.Send(data);
+                Console.WriteLine("Sent: {0}", message);
+            }
+            else
+            {
+                Console.WriteLine("Client is not connected");
+            }
+        }
         public void Send2a()
         {
             if (m_csocket != null)
@@ -559,14 +573,18 @@ namespace Test01
         {
             if (m_csocket != null)
             {
-                IList<string> sample;
-                if(delim == 1)
+                IList<string> sample = Samples.sample1;
+                if (delim == 1)
                 {
                     sample = Samples.sample1;
                 }
                 else if (delim == 2)
                 {
                     sample = Samples.sample2;
+                }
+                else if (delim == 3)
+                {
+                    sample = Samples.sample3;
                 }
                 else if (delim == 4)
                 {
@@ -575,6 +593,10 @@ namespace Test01
                 else if (delim == 5)
                 {
                     sample = Samples.sample5;
+                }
+                else if (delim == 6)
+                {
+                    sample = Samples.sample6;
                 }
                 else if (delim == 7)
                 {
@@ -588,26 +610,42 @@ namespace Test01
                 {
                     sample = Samples.sample9;
                 }
-                else if (delim == 30)
+                else if (delim == 101)
                 {
                     sample = Samples.sample10a;
                 }
-                else if (delim == 31)
+                else if (delim == 102)
                 {
                     sample = Samples.sample10b;
                 }
-                else if (delim == 32)
+                else if (delim == 103)
                 {
                     sample = Samples.sample10c;
                 }
+                else if (delim == 11)
+                {
+                    sample = Samples.sample11;
+                }
+                else if (delim == 12)
+                {
+                    sample = Samples.sample12;
+                }
+                else if (delim == 13)
+                {
+                    sample = Samples.sample13;
+                }
+                else if (delim == 14)
+                {
+                    sample = Samples.sample14;
+                }
 
-                foreach (var s in Samples.sample2)
+                foreach (var s in sample)
                 {
                     byte[] data = Encoding.UTF8.GetBytes(s);
                     m_csocket.Send(data);
                     Console.WriteLine("Sent: {0}", s);
-                    Console.Write("Press enter to continue...");
-                    Console.ReadLine();
+                    Console.Write("Press a key to continue...");
+                    Console.ReadKey();
                 }
                 Console.WriteLine("Done!");
             }
