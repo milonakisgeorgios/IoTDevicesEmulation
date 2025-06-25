@@ -485,6 +485,62 @@ namespace Test01
             }
         }
 
+
+
+        /// <summary>
+        /// 
+        /// 0x0A with 1 repeated blocks
+        /// </summary>
+        public void Send4b()
+        {
+            if (m_csocket != null)
+            {
+                string message = "582B0ADA85D6390000002405E8D04768CF0AA60A750A4F0A430A380A6CD247680C0B00DFB4E048";
+                byte[] data = Encoding.UTF8.GetBytes(message);
+                m_csocket.Send(data);
+                Console.WriteLine("Sent: {0}", message);
+            }
+            else
+            {
+                Console.WriteLine("Client is not connected");
+            }
+        }
+        /// <summary>
+        /// 
+        /// 0x0A with 2 repeated blocks
+        /// </summary>
+        public void Send4c()
+        {
+            if (m_csocket != null)
+            {
+                string message = "D5920A2BA9CA390000001E05B8EE3B68510925090E09D0086B080E080FF13B687E0900DBA30000240568F33B684F083B0822080208EC07CC078CF53B68910800E0B4C800";
+                byte[] data = Encoding.UTF8.GetBytes(message);
+                m_csocket.Send(data);
+                Console.WriteLine("Sent: {0}", message);
+            }
+            else
+            {
+                Console.WriteLine("Client is not connected");
+            }
+        }
+        /// <summary>
+        /// 0x0A with 3 repeated blocks
+        /// </summary>
+        public void Send4d()
+        {
+            if (m_csocket != null)
+            {
+                string message = "78B70AF17DCD390000002305A0C73E68B60C8F0C870C580C3D0C370C99C93E680A0000DE9A00002405F8C93E689F0A6A0A590A480A2B0A1D0A64CA3E68C20A01E0B200002505A0C73E685A0DBF0DBF0DC70DBD0D110EE6C73E68150000DE9CE19F";
+                byte[] data = Encoding.UTF8.GetBytes(message);
+                m_csocket.Send(data);
+                Console.WriteLine("Sent: {0}", message);
+            }
+            else
+            {
+                Console.WriteLine("Client is not connected");
+            }
+        }
+
         /// <summary>
         /// 2A0B0772E34D68000300DB3EE5416DCA
         /// BAD CRC

@@ -15,7 +15,7 @@ namespace Test01
             if (client.IsConnected)
             {
                 Console.WriteLine("\t\t*        R -> Reconnect");
-                Console.WriteLine("\t\t*        D -> Drop");
+                Console.WriteLine("\t\t*        / -> Drop");
             }
             else
             {
@@ -33,7 +33,10 @@ namespace Test01
                 Console.WriteLine("\t\t*        22 -> Send2b (Second Half)");
                 Console.WriteLine("\t\t*        31 -> Send3a (First)");
                 Console.WriteLine("\t\t*        32 -> Send3b (Second)");
-                Console.WriteLine("\t\t*        4 -> Send4a (in parts)");
+                Console.WriteLine("\t\t*        41 -> Send4a (in parts)");
+                Console.WriteLine("\t\t*        42 -> Send4b (0x0A with 1 repeated blocks)");
+                Console.WriteLine("\t\t*        43 -> Send4c (0x0A with 2 repeated blocks)");
+                Console.WriteLine("\t\t*        44 -> Send4d (0x0A with 3 repeated blocks)");
                 Console.WriteLine("\t\t*        51 -> Send5a (BAD CRC)");
                 Console.WriteLine("\t\t*        52 -> Send5b (BAD CONTENT)");
                 Console.WriteLine("\t\t*        53 -> Send5c (BAD DELIMITER)");
@@ -42,11 +45,13 @@ namespace Test01
 
                 Console.WriteLine("\t\t*        d1 -> del1");
                 Console.WriteLine("\t\t*        d2 -> del2");
-                Console.WriteLine("\t\t*        d3 -> del4");
-                Console.WriteLine("\t\t*        d4 -> del5");
-                Console.WriteLine("\t\t*        d5 -> del7");
-                Console.WriteLine("\t\t*        d6 -> del8");
-                Console.WriteLine("\t\t*        d7 -> del9");
+                Console.WriteLine("\t\t*        d3 -> del3");
+                Console.WriteLine("\t\t*        d4 -> del4");
+                Console.WriteLine("\t\t*        d5 -> del5");
+                Console.WriteLine("\t\t*        d6 -> del6");
+                Console.WriteLine("\t\t*        d7 -> del7");
+                Console.WriteLine("\t\t*        d8 -> del8");
+                Console.WriteLine("\t\t*        d9 -> del9");
                 Console.WriteLine("\t\t*        f1 -> del10a");
                 Console.WriteLine("\t\t*        f2 -> del10b");
                 Console.WriteLine("\t\t*        f3 -> del10c");
@@ -57,9 +62,11 @@ namespace Test01
             }
             Console.WriteLine("\t\t*******************************************");
         }
+        
+        
         static void Main(string[] args)
         {
-            string _IP = "198.168.1.6";
+            string _IP = "192.168.1.6";
             int _Port = 5122;
 
             var quitEvent = new ManualResetEvent(false);
@@ -74,7 +81,7 @@ namespace Test01
                     Console.Write(input1);
                     var input2 = input1;
 
-                    if(input1 != "." && input1 != "C" && input1 != "D" && input1 != "R")
+                    if(input1 != "." && input1 != "C" && input1 != "/" && input1 != "R")
                     {
                         input2 = Console.ReadKey(true).KeyChar.ToString().ToUpperInvariant();
                         Console.Write(input2);
@@ -98,7 +105,7 @@ namespace Test01
                             client.Connect();
                         }
                     }
-                    else if (input1 == "D")
+                    else if (input1 == "/")
                     {
                         Console.WriteLine("\tDisconnect");
                         if(client.IsConnected == true)
@@ -210,8 +217,26 @@ namespace Test01
                         }
                         else
                         {
-                            Console.WriteLine("\tSend4a");
-                            client.Send4a();
+                            if (input2 == "1")
+                            {
+                                Console.WriteLine("\tSend4a");
+                                client.Send4a();
+                            }
+                            else if (input2 == "2")
+                            {
+                                Console.WriteLine("\tSend4b");
+                                client.Send4b();
+                            }
+                            else if (input2 == "3")
+                            {
+                                Console.WriteLine("\tSend4c");
+                                client.Send4c();
+                            }
+                            else if (input2 == "4")
+                            {
+                                Console.WriteLine("\tSend4d");
+                                client.Send4d();
+                            }
                         }
                     }
 
@@ -293,6 +318,16 @@ namespace Test01
                             {
                                 Console.WriteLine("\tDelim 7");
                                 client.del(7);
+                            }
+                            else if (input2 == "8")
+                            {
+                                Console.WriteLine("\tDelim 8");
+                                client.del(8);
+                            }
+                            else if (input2 == "9")
+                            {
+                                Console.WriteLine("\tDelim 9");
+                                client.del(9);
                             }
                         }
                     }
