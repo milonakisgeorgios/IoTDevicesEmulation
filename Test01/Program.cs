@@ -59,7 +59,7 @@ namespace Test01
         }
         static void Main(string[] args)
         {
-            string _IP = "127.0.0.1";
+            string _IP = "198.168.1.6";
             int _Port = 5122;
 
             var quitEvent = new ManualResetEvent(false);
