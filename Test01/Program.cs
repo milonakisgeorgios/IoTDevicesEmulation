@@ -38,6 +38,7 @@ namespace Test01
                 Console.WriteLine("\t\t*        52 -> Send5b (BAD CONTENT)");
                 Console.WriteLine("\t\t*        53 -> Send5c (BAD DELIMITER)");
                 Console.WriteLine("\t\t*        54 -> Send5d (BUFFER OVERFLOW)");
+                Console.WriteLine("\t\t*        55 -> Send5e (BUFFER OVERFLOW)");
 
                 Console.WriteLine("\t\t*        d1 -> del1");
                 Console.WriteLine("\t\t*        d2 -> del2");
@@ -242,6 +243,11 @@ namespace Test01
                             {
                                 Console.WriteLine("\tSend5d");
                                 client.Send5d();
+                            }
+                            else if (input2 == "5")
+                            {
+                                Console.WriteLine("\tSend5e");
+                                client.Send5e();
                             }
                         }
                     }

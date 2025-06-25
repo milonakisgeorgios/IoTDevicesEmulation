@@ -541,9 +541,33 @@ namespace Test01
         }
         /// <summary>
         /// 522B0A6285D63900 00002405E8D04768CF0AA60A750A4F0A430A380AF4D14768CD0A00DFB4 DE6F
-        /// BAD DELIMITER
+        /// BUFFER OVERFLOW
         /// </summary>
         public void Send5d()
+        {
+            if (m_csocket != null)
+            {
+                string part1 = "522B0A6285D6390000002405E8D04768CF0AA60A750A4F0A430A380AF4D14768CD0A00DFB4";
+                byte[] data = Encoding.UTF8.GetBytes(part1);
+                for (int i=1; i<=1000; i++)
+                {
+                    m_csocket.Send(data);
+
+                    Console.Write(".", part1);
+                }
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("Client is not connected");
+            }
+        }
+
+        /// <summary>
+        /// 522B0A6285D63900 00002405E8D04768CF0AA60A750A4F0A430A380AF4D14768CD0A00DFB4 DE6F
+        /// BUFFER OVERFLOW
+        /// </summary>
+        public void Send5e()
         {
             if (m_csocket != null)
             {
@@ -554,11 +578,11 @@ namespace Test01
 
                 string part2 = "00002405E8D04768CF0AA60A750A4F0A430A380AF4D14768CD0A00DFB4";
                 byte[] data2 = Encoding.UTF8.GetBytes(part2);
-                for (int i=1; i<=1000; i++)
+                for (int i = 1; i <= 1000; i++)
                 {
-                    m_csocket.Send(data);
+                    m_csocket.Send(data2);
 
-                    Console.Write(".", part1);
+                    Console.Write(".", part2);
                 }
                 Console.WriteLine();
             }
