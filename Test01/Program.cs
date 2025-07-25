@@ -12,6 +12,7 @@ namespace Test01
             Console.WriteLine("\t\t*        . -> Quit");
             Console.WriteLine("\t\t*        s1 -> Scenario1");
             Console.WriteLine("\t\t*        s2 -> Scenario2");
+            Console.WriteLine("\t\t*        s3 -> Scenario3");
             if (client.IsConnected)
             {
                 Console.WriteLine("\t\t*        R -> Reconnect");
@@ -132,7 +133,12 @@ namespace Test01
                         {
                             Console.WriteLine("\tScenario2");
                             scenario2(_IP, _Port);
-                        }       
+                        }
+                        else if (input2 == "3")
+                        {
+                            Console.WriteLine("\tScenario3");
+                            scenario3(_IP, _Port);
+                        }
                     }
                     else if (input1 == "1")
                     {
@@ -457,7 +463,7 @@ namespace Test01
             var client9 = new IoTClient(_IP, _Port, quitEvent);
             var client10 = new IoTClient(_IP, _Port, quitEvent);
 
-            int wait_ms = 60;
+            int wait_ms = 50;
             for (int i = 1; i <= 400; i++)
             {
                 try
@@ -468,50 +474,26 @@ namespace Test01
                     Thread.Sleep(wait_ms);
 
 
-                    client1.Send1a();
-                    Thread.Sleep(wait_ms);
-                    client1.Send2a();
-                    Thread.Sleep(wait_ms);
-
-
                     client1.Stop();
                     client3.Connect();
                     Thread.Sleep(wait_ms);
 
-
-                    client2.Send1a();
-                    Thread.Sleep(wait_ms);
-                    client2.Send2a();
-                    Thread.Sleep(wait_ms);
 
                     client2.Stop();
                     client4.Connect();
                     Thread.Sleep(wait_ms);
 
 
-                    client3.Send1a();
-                    Thread.Sleep(wait_ms);
-                    client3.Send2a();
-                    Thread.Sleep(wait_ms);
-
 
                     client3.Stop();
                     client5.Connect();
                     Thread.Sleep(wait_ms);
 
-                    client4.Send1a();
-                    Thread.Sleep(wait_ms);
-                    client4.Send2a();
-                    Thread.Sleep(wait_ms);
 
                     client4.Stop();
                     client6.Connect();
                     Thread.Sleep(wait_ms);
 
-                    client5.Send1a();
-                    Thread.Sleep(wait_ms);
-                    client5.Send2a();
-                    Thread.Sleep(wait_ms);
 
                     client5.Stop();
                     client7.Connect();
@@ -536,6 +518,72 @@ namespace Test01
                     Thread.Sleep(wait_ms);
                     client10.Stop();
                     Thread.Sleep(wait_ms);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+
+
+
+        static void scenario3(string _IP, int _Port)
+        {
+            var quitEvent = new ManualResetEvent(false);
+            var client1 = new IoTClient(_IP, _Port, quitEvent);
+
+            int wait1_ms = 100;
+            int wait2_ms = 200;
+            for (int i = 1; i <= 400; i++)
+            {
+                try
+                {
+                    client1.Connect();
+
+                    Thread.Sleep(wait1_ms);
+
+                    for(int j=1; j<=10; j++)
+                    {
+                        client1.Send1a();
+                        Thread.Sleep(wait2_ms);
+                        client1.Send1b();
+                        Thread.Sleep(wait2_ms);
+                        client1.Send1c();
+                        Thread.Sleep(wait2_ms);
+                        client1.Send1d();
+                        Thread.Sleep(wait2_ms);
+                        client1.Send1e();
+                        Thread.Sleep(wait2_ms);
+                    }
+
+                    for (int j = 1; j <= 10; j++)
+                    {
+                        client1.Send2a();
+                        Thread.Sleep(wait2_ms);
+                        client1.Send2b();
+                        Thread.Sleep(wait2_ms);
+                        client1.Send3a();
+                        Thread.Sleep(wait2_ms);
+                        client1.Send3b();
+                        Thread.Sleep(wait2_ms);
+                    }
+
+                    for (int j = 1; j <= 10; j++)
+                    {
+                        client1.del(1);
+                        Thread.Sleep(wait2_ms);
+                        client1.del(2);
+                        Thread.Sleep(wait2_ms);
+                        client1.del(3);
+                        Thread.Sleep(wait2_ms);
+                        client1.Send3b();
+                        Thread.Sleep(wait2_ms);
+                    }
+
+
+                    Thread.Sleep(wait1_ms);
+                    client1.Stop();
                 }
                 catch (Exception ex)
                 {
