@@ -724,8 +724,9 @@ namespace Test01
                     byte[] data = Encoding.UTF8.GetBytes(s);
                     m_csocket.Send(data);
                     Console.WriteLine("Sent: {0}", s);
-                    Console.Write("Press a key to continue...");
-                    Console.ReadKey();
+                    //Console.Write("Press a key to continue...");
+                    //Console.ReadKey();
+                    Thread.Sleep(50);
                 }
                 Console.WriteLine("Done!");
             }
