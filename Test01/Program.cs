@@ -467,16 +467,22 @@ namespace Test01
                     client2.Connect();
                     Thread.Sleep(wait_ms);
 
+
                     client1.Send1a();
+                    Thread.Sleep(wait_ms);
                     client1.Send2a();
+                    Thread.Sleep(wait_ms);
 
 
                     client1.Stop();
                     client3.Connect();
                     Thread.Sleep(wait_ms);
 
+
                     client2.Send1a();
+                    Thread.Sleep(wait_ms);
                     client2.Send2a();
+                    Thread.Sleep(wait_ms);
 
                     client2.Stop();
                     client4.Connect();
@@ -484,7 +490,9 @@ namespace Test01
 
 
                     client3.Send1a();
+                    Thread.Sleep(wait_ms);
                     client3.Send2a();
+                    Thread.Sleep(wait_ms);
 
 
                     client3.Stop();
@@ -492,14 +500,18 @@ namespace Test01
                     Thread.Sleep(wait_ms);
 
                     client4.Send1a();
+                    Thread.Sleep(wait_ms);
                     client4.Send2a();
+                    Thread.Sleep(wait_ms);
 
                     client4.Stop();
                     client6.Connect();
                     Thread.Sleep(wait_ms);
 
                     client5.Send1a();
+                    Thread.Sleep(wait_ms);
                     client5.Send2a();
+                    Thread.Sleep(wait_ms);
 
                     client5.Stop();
                     client7.Connect();
