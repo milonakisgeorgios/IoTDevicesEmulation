@@ -533,8 +533,8 @@ namespace Test01
             var quitEvent = new ManualResetEvent(false);
             var client1 = new IoTClient(_IP, _Port, quitEvent);
 
-            int wait1_ms = 50;
-            int wait2_ms = 50;
+            int wait1_ms = 40;
+            int wait2_ms = 40;
             Console.WriteLine("\r000");
             for (int i = 1; i <= 8; i++)
             {
@@ -550,15 +550,15 @@ namespace Test01
                     for (int j=1; j<=10; j++)
                     {
                         client1.Send1a(false);
-                        Thread.Sleep(wait2_ms);
+                        //Thread.Sleep(wait2_ms);
                         client1.Send1b(false);
                         Thread.Sleep(wait2_ms);
                         client1.Send1c(false);
                         Thread.Sleep(wait2_ms);
                         client1.Send1d(false);
-                        Thread.Sleep(wait2_ms);
+                        //Thread.Sleep(wait2_ms);
                         client1.Send1e(false);
-                        Thread.Sleep(wait2_ms);
+                        //Thread.Sleep(wait2_ms);
                     }
 
                     Console.WriteLine($"\r{i}.part2");
@@ -567,11 +567,11 @@ namespace Test01
                         client1.Send2a(false);
                         Thread.Sleep(wait2_ms);
                         client1.Send2b(false);
-                        Thread.Sleep(wait2_ms);
+                        //Thread.Sleep(wait2_ms);
                         client1.Send3a(false);
                         Thread.Sleep(wait2_ms);
                         client1.Send3b(false);
-                        Thread.Sleep(wait2_ms);
+                        //Thread.Sleep(wait2_ms);
                     }
 
                     Console.WriteLine($"\r{i}.part3");
@@ -580,9 +580,9 @@ namespace Test01
                         client1.del(1,false);
                         Thread.Sleep(wait2_ms);
                         client1.del(2, false);
-                        Thread.Sleep(wait2_ms);
+                        //Thread.Sleep(wait2_ms);
                         client1.del(3, false);
-                        Thread.Sleep(wait2_ms);
+                        //Thread.Sleep(wait2_ms);
                         client1.Send3b(false);
                         Thread.Sleep(wait2_ms);
                     }
