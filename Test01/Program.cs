@@ -552,7 +552,7 @@ namespace Test01
                         client1.Send1a(false);
                         //Thread.Sleep(wait2_ms);
                         client1.Send1b(false);
-                        //Thread.Sleep(wait2_ms);
+                        Thread.Sleep(wait2_ms);
                         client1.Send1c(false);
                         Thread.Sleep(wait2_ms);
                         client1.Send1d(false);
@@ -567,11 +567,11 @@ namespace Test01
                         client1.Send2a(false);
                         //Thread.Sleep(wait2_ms);
                         client1.Send2b(false);
-                        //Thread.Sleep(wait2_ms);
+                        Thread.Sleep(wait2_ms);
                         client1.Send3a(false);
                         //Thread.Sleep(wait2_ms);
                         client1.Send3b(false);
-                        //Thread.Sleep(wait2_ms);
+                        Thread.Sleep(wait2_ms);
                     }
 
                     Console.WriteLine($"\r{i}.part3");
@@ -580,13 +580,14 @@ namespace Test01
                         client1.del(1,false);
                         //Thread.Sleep(wait2_ms);
                         client1.del(2, false);
-                        //Thread.Sleep(wait2_ms);
+                        Thread.Sleep(wait2_ms);
                         client1.del(3, false);
                         //Thread.Sleep(wait2_ms);
                         client1.Send3b(false);
-                        //Thread.Sleep(wait2_ms);
+                        Thread.Sleep(wait2_ms);
                     }
 
+                    Thread.Sleep(wait1_ms);
                     client1.Stop();
                 }
                 catch (Exception ex)
