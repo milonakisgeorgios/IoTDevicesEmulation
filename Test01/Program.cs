@@ -584,7 +584,7 @@ namespace Test01
                         client1.del(3, false);
                         //Thread.Sleep(wait2_ms);
                         client1.Send3b(false);
-                        Thread.Sleep(wait2_ms);
+                        //Thread.Sleep(wait2_ms);
                     }
 
                     client1.Stop();
