@@ -535,7 +535,7 @@ namespace Test01
 
             int wait1_ms = 50;
             int wait2_ms = 50;
-            for (int i = 1; i <= 200; i++)
+            for (int i = 1; i <= 180; i++)
             {
                 try
                 {
