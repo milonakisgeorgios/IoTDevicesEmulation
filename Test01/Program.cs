@@ -101,10 +101,10 @@ namespace Test01
                     else if (input1 == "C")
                     {
                         Console.WriteLine("\tConnect");
-                        //if(client.IsConnected == false)
-                        //{
-                        //    client.Connect();
-                        //}
+                        if(client.IsConnected == false)
+                        {
+                            client.Connect();
+                        }
                     }
                     else if (input1 == "/")
                     {
@@ -396,7 +396,7 @@ namespace Test01
 
         static void scenario1(string _IP, int _Port)
         {
-            for(int i=1; i<=80; i++)
+            for(int i=1; i<=100; i++)
             {
                 try
                 {
