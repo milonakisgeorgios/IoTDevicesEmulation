@@ -463,7 +463,7 @@ namespace Test01
             var client9 = new IoTClient(_IP, _Port, quitEvent);
             var client10 = new IoTClient(_IP, _Port, quitEvent);
 
-            int wait_ms = 40;
+            int wait_ms = 30;
             for (int i = 1; i <= 400; i++)
             {
                 try
