@@ -313,133 +313,133 @@ namespace Test01
 
 
 
-        public void Send1a()
+        public void Send1a(bool show=true)
         {
             if (m_csocket != null)
             {
                 string message = "210B0185E24D680005000100CD05";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
-        public void Send1b()
+        public void Send1b(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "210B0185E24D680005000100CD05C67907D49CDC390003000BE1EB4102C4";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
-        public void Send1c()
+        public void Send1c(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "C8790ADD9CDC39000000240580E74D686309790985099209A509BA097CE94D68A90900DFB6E25CABED07CBE24D6800030145F7AAC28502AFED010FE34D680005000000C30D";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
-        public void Send1d()
+        public void Send1d(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "B3ED014BE34D680005000000D9EF1CA508A6E34D68000000C86BC7420100E506BA420200E27BC0420300F05DC14204005BFDBA422C0112AB2A0B0772E34D68000300DB3EE5416DCA2C0B0A75E34D680000002405D8E94D6858096309790985099209A50958EA4D68770900DFA286E9";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
-        public void Send1e()
+        public void Send1e(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "A93A0A559451680000002405609A5168B80C9E0DED0DF40D020EDA0D309B5168620C00DF9C435AAA3A045594516800012405000001ED39AB3A015594516800050001006273AC3A078094516800030027B5134205CDAD3A07809451680003018BE6A4C2FDA8AE3A0A919451680000002405609A5168B80C9E0DED0DF40D020EDA0D589B5168620C00DF9B54A0AF3A019194516800050001003202B03A04CD945168000124050000008B8CB23A01CD94516800050000006DAAB33A07F8945168000300FFC612422A16B43A07F89451680003018BE6A4C21CE7B53A0A099551680000002405609A5168B80C9E0DED0DF40D020EDA0DF89B5168620C00DF9B8517B63A040995516800012405000001B064B73A01099551680005000100AAAC";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
-        public void Send2a()
+        public void Send2a(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "D37907C49DDC3900";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
-        public void Send2b()
+        public void Send2b(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "0301BEE6A4C20560";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
-        public void Send3a()
+        public void Send3a(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "D37907C49DDC39000";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
-        public void Send3b()
+        public void Send3b(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "301BEE6A4C20560";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
                 Console.WriteLine("Client is not connected");
             }
         }
-        public void Send4a()
+        public void Send4a(bool show = true)
         {
             if (m_csocket != null)
             {
@@ -452,32 +452,32 @@ namespace Test01
 
                 byte[] data = Encoding.UTF8.GetBytes(part1);
                 m_csocket.Send(data);
-                Console.Write("Sent: {0}", part1);
+                if (show) Console.Write("Sent: {0}", part1);
                 Thread.Sleep(500);
 
                 data = Encoding.UTF8.GetBytes(part2);
                 m_csocket.Send(data);
-                Console.Write(part2);
+                if (show) Console.Write(part2);
                 Thread.Sleep(500);
 
                 data = Encoding.UTF8.GetBytes(part3);
                 m_csocket.Send(data);
-                Console.Write(part3);
+                if (show) Console.Write(part3);
                 Thread.Sleep(500);
 
                 data = Encoding.UTF8.GetBytes(part4);
                 m_csocket.Send(data);
-                Console.Write(part4);
+                if (show) Console.Write(part4);
                 Thread.Sleep(500);
                 data = Encoding.UTF8.GetBytes(part5);
                 m_csocket.Send(data);
-                Console.Write(part5);
+                if (show) Console.Write(part5);
                 Thread.Sleep(800);
                 data = Encoding.UTF8.GetBytes(part6);
                 m_csocket.Send(data);
-                Console.Write(part6);
+                if (show) Console.Write(part6);
 
-                Console.WriteLine("\nDONE!");
+                if (show) Console.WriteLine("\nDONE!");
             }
             else
             {
@@ -491,53 +491,53 @@ namespace Test01
         /// 
         /// 0x0A with 1 repeated blocks
         /// </summary>
-        public void Send4b()
+        public void Send4b(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "582B0ADA85D6390000002405E8D04768CF0AA60A750A4F0A430A380A6CD247680C0B00DFB4E048";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
         /// <summary>
         /// 
         /// 0x0A with 2 repeated blocks
         /// </summary>
-        public void Send4c()
+        public void Send4c(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "D5920A2BA9CA390000001E05B8EE3B68510925090E09D0086B080E080FF13B687E0900DBA30000240568F33B684F083B0822080208EC07CC078CF53B68910800E0B4C800";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
         /// <summary>
         /// 0x0A with 3 repeated blocks
         /// </summary>
-        public void Send4d()
+        public void Send4d(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "78B70AF17DCD390000002305A0C73E68B60C8F0C870C580C3D0C370C99C93E680A0000DE9A00002405F8C93E689F0A6A0A590A480A2B0A1D0A64CA3E68C20A01E0B200002505A0C73E685A0DBF0DBF0DC70DBD0D110EE6C73E68150000DE9CE19F";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
 
@@ -545,61 +545,61 @@ namespace Test01
         /// 2A0B0772E34D68000300DB3EE5416DCA
         /// BAD CRC
         /// </summary>
-        public void Send5a()
+        public void Send5a(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "2A0B0772E34D68000300DB3EE5416DCC";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
         /// <summary>
         /// 2A0B0772E34D68000300DB3EE5416DCA
         /// BAD CONTENT
         /// </summary>
-        public void Send5b()
+        public void Send5b(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "2A0B0772H34D68000300DB3EE5416DCA";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
         /// <summary>
         /// 2A0B0772E34D68000300DB3EE5416DCA
         /// BAD DELIMITER
         /// </summary>
-        public void Send5c()
+        public void Send5c(bool show = true)
         {
             if (m_csocket != null)
             {
                 string message = "2A0BBC72E34D68000300DB3EE5416DCA";
                 byte[] data = Encoding.UTF8.GetBytes(message);
                 m_csocket.Send(data);
-                Console.WriteLine("Sent: {0}", message);
+                if (show) Console.WriteLine("Sent: {0}", message);
             }
             else
             {
-                Console.WriteLine("Client is not connected");
+                if (show) Console.WriteLine("Client is not connected");
             }
         }
         /// <summary>
         /// 522B0A6285D63900 00002405E8D04768CF0AA60A750A4F0A430A380AF4D14768CD0A00DFB4 DE6F
         /// BUFFER OVERFLOW
         /// </summary>
-        public void Send5d()
+        public void Send5d(bool show = true)
         {
             if (m_csocket != null)
             {
@@ -609,9 +609,9 @@ namespace Test01
                 {
                     m_csocket.Send(data);
 
-                    Console.Write(".", part1);
+                    if (show) Console.Write(".", part1);
                 }
-                Console.WriteLine();
+                if (show) Console.WriteLine();
             }
             else
             {
@@ -623,7 +623,7 @@ namespace Test01
         /// 522B0A6285D63900 00002405E8D04768CF0AA60A750A4F0A430A380AF4D14768CD0A00DFB4 DE6F
         /// BUFFER OVERFLOW
         /// </summary>
-        public void Send5e()
+        public void Send5e(bool show = true)
         {
             if (m_csocket != null)
             {
@@ -638,9 +638,9 @@ namespace Test01
                 {
                     m_csocket.Send(data2);
 
-                    Console.Write(".", part2);
+                    if (show) Console.Write(".", part2);
                 }
-                Console.WriteLine();
+                if (show) Console.WriteLine();
             }
             else
             {
@@ -649,7 +649,7 @@ namespace Test01
         }
 
 
-        public void del(int delim)
+        public void del(int delim, bool show = true)
         {
             if (m_csocket != null)
             {
@@ -723,12 +723,12 @@ namespace Test01
                 {
                     byte[] data = Encoding.UTF8.GetBytes(s);
                     m_csocket.Send(data);
-                    Console.WriteLine("Sent: {0}", s);
+                    if(show) Console.WriteLine("Sent: {0}", s);
                     //Console.Write("Press a key to continue...");
                     //Console.ReadKey();
                     Thread.Sleep(50);
                 }
-                Console.WriteLine("Done!");
+                if (show) Console.WriteLine("Done!");
             }
             else
             {

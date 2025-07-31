@@ -533,9 +533,9 @@ namespace Test01
             var quitEvent = new ManualResetEvent(false);
             var client1 = new IoTClient(_IP, _Port, quitEvent);
 
-            int wait1_ms = 80;
-            int wait2_ms = 80;
-            for (int i = 1; i <= 400; i++)
+            int wait1_ms = 50;
+            int wait2_ms = 50;
+            for (int i = 1; i <= 200; i++)
             {
                 try
                 {
@@ -545,44 +545,42 @@ namespace Test01
 
                     for(int j=1; j<=10; j++)
                     {
-                        client1.Send1a();
+                        client1.Send1a(false);
                         Thread.Sleep(wait2_ms);
-                        client1.Send1b();
+                        client1.Send1b(false);
                         Thread.Sleep(wait2_ms);
-                        client1.Send1c();
+                        client1.Send1c(false);
                         Thread.Sleep(wait2_ms);
-                        client1.Send1d();
+                        client1.Send1d(false);
                         Thread.Sleep(wait2_ms);
-                        client1.Send1e();
-                        Thread.Sleep(wait2_ms);
-                    }
-
-                    for (int j = 1; j <= 10; j++)
-                    {
-                        client1.Send2a();
-                        Thread.Sleep(wait2_ms);
-                        client1.Send2b();
-                        Thread.Sleep(wait2_ms);
-                        client1.Send3a();
-                        Thread.Sleep(wait2_ms);
-                        client1.Send3b();
+                        client1.Send1e(false);
                         Thread.Sleep(wait2_ms);
                     }
 
                     for (int j = 1; j <= 10; j++)
                     {
-                        client1.del(1);
+                        client1.Send2a(false);
                         Thread.Sleep(wait2_ms);
-                        client1.del(2);
+                        client1.Send2b(false);
                         Thread.Sleep(wait2_ms);
-                        client1.del(3);
+                        client1.Send3a(false);
                         Thread.Sleep(wait2_ms);
-                        client1.Send3b();
+                        client1.Send3b(false);
                         Thread.Sleep(wait2_ms);
                     }
 
+                    for (int j = 1; j <= 10; j++)
+                    {
+                        client1.del(1,false);
+                        Thread.Sleep(wait2_ms);
+                        client1.del(2, false);
+                        Thread.Sleep(wait2_ms);
+                        client1.del(3, false);
+                        Thread.Sleep(wait2_ms);
+                        client1.Send3b(false);
+                        Thread.Sleep(wait2_ms);
+                    }
 
-                    Thread.Sleep(wait1_ms);
                     client1.Stop();
                 }
                 catch (Exception ex)
