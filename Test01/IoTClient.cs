@@ -726,7 +726,7 @@ namespace Test01
                     if(show) Console.WriteLine("Sent: {0}", s);
                     //Console.Write("Press a key to continue...");
                     //Console.ReadKey();
-                    Thread.Sleep(50);
+                    //Thread.Sleep(50);
                 }
                 if (show) Console.WriteLine("Done!");
             }
