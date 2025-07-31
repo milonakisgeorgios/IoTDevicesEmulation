@@ -578,11 +578,11 @@ namespace Test01
                     for (int j = 1; j <= 10; j++)
                     {
                         client1.del(1,false);
-                        //Thread.Sleep(wait2_ms);
+                        Thread.Sleep(wait2_ms);
                         client1.del(2, false);
                         Thread.Sleep(wait2_ms);
                         client1.del(3, false);
-                        //Thread.Sleep(wait2_ms);
+                        Thread.Sleep(wait2_ms);
                         client1.Send3b(false);
                         Thread.Sleep(wait2_ms);
                     }
