@@ -533,10 +533,10 @@ namespace Test01
             var quitEvent = new ManualResetEvent(false);
             var client1 = new IoTClient(_IP, _Port, quitEvent);
 
-            int wait1_ms = 40;
+            int wait1_ms = 50;
             int wait2_ms = 30;
             Console.WriteLine("\r000");
-            for (int i = 1; i <= 10; i++)
+            for (int i = 1; i <= 30; i++)
             {
 
                 Console.WriteLine($"\r{i}");
@@ -560,7 +560,7 @@ namespace Test01
                         client1.Send1e(false);
                         //Thread.Sleep(wait2_ms);
                     }
-
+                    Thread.Sleep(wait1_ms);
                     Console.WriteLine($"\r{i}.part2");
                     for (int j = 1; j <= 10; j++)
                     {
