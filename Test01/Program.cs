@@ -535,15 +535,19 @@ namespace Test01
 
             int wait1_ms = 50;
             int wait2_ms = 50;
+            Console.WriteLine("\r000");
             for (int i = 1; i <= 180; i++)
             {
+
+                Console.WriteLine($"\r{i}");
                 try
                 {
                     client1.Connect();
 
                     Thread.Sleep(wait1_ms);
 
-                    for(int j=1; j<=10; j++)
+                    Console.WriteLine($"\r{i}.part1");
+                    for (int j=1; j<=10; j++)
                     {
                         client1.Send1a(false);
                         Thread.Sleep(wait2_ms);
@@ -557,6 +561,7 @@ namespace Test01
                         Thread.Sleep(wait2_ms);
                     }
 
+                    Console.WriteLine($"\r{i}.part2");
                     for (int j = 1; j <= 10; j++)
                     {
                         client1.Send2a(false);
@@ -569,6 +574,7 @@ namespace Test01
                         Thread.Sleep(wait2_ms);
                     }
 
+                    Console.WriteLine($"\r{i}.part3");
                     for (int j = 1; j <= 10; j++)
                     {
                         client1.del(1,false);
