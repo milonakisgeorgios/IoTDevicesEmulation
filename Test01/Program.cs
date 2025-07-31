@@ -101,10 +101,10 @@ namespace Test01
                     else if (input1 == "C")
                     {
                         Console.WriteLine("\tConnect");
-                        if(client.IsConnected == false)
-                        {
-                            client.Connect();
-                        }
+                        //if(client.IsConnected == false)
+                        //{
+                        //    client.Connect();
+                        //}
                     }
                     else if (input1 == "/")
                     {
@@ -533,8 +533,8 @@ namespace Test01
             var quitEvent = new ManualResetEvent(false);
             var client1 = new IoTClient(_IP, _Port, quitEvent);
 
-            int wait1_ms = 100;
-            int wait2_ms = 200;
+            int wait1_ms = 80;
+            int wait2_ms = 80;
             for (int i = 1; i <= 400; i++)
             {
                 try
