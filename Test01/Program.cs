@@ -536,7 +536,7 @@ namespace Test01
             int wait1_ms = 50;
             int wait2_ms = 50;
             Console.WriteLine("\r000");
-            for (int i = 1; i <= 180; i++)
+            for (int i = 1; i <= 20; i++)
             {
 
                 Console.WriteLine($"\r{i}");
