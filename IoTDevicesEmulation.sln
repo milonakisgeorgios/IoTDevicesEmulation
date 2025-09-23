@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFiles", "TestFiles", "{
 		TestFiles\IoTWorker_2025-06-10.log.txt = TestFiles\IoTWorker_2025-06-10.log.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{FF058504-2C89-4AF5-B75F-C3BDE72775D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emulator2", "Emulator2\Emulator2.csproj", "{DE505228-239E-4304-8501-C3409A0E6A94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,10 @@ Global
 		{6A7371AF-C9B6-4F51-8CD6-435BDF0A129B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A7371AF-C9B6-4F51-8CD6-435BDF0A129B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A7371AF-C9B6-4F51-8CD6-435BDF0A129B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF058504-2C89-4AF5-B75F-C3BDE72775D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF058504-2C89-4AF5-B75F-C3BDE72775D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF058504-2C89-4AF5-B75F-C3BDE72775D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF058504-2C89-4AF5-B75F-C3BDE72775D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE505228-239E-4304-8501-C3409A0E6A94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE505228-239E-4304-8501-C3409A0E6A94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE505228-239E-4304-8501-C3409A0E6A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE505228-239E-4304-8501-C3409A0E6A94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
