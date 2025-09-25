@@ -8,7 +8,7 @@ namespace Emulator2
 {
     internal class Orchestrator
     {
-        string _svrIP = "127.0.0.1";
+        string _svrIP = "192.168.1.105";
         int _svrPORT = 2001;
         ManualResetEvent quitEvent = new ManualResetEvent(false);
         int _state = 0;
