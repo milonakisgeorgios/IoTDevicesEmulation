@@ -81,7 +81,7 @@ namespace Emulator2
         public void ProcessReceivedData(byte[] rcvBuffer, int numOfBytes)
         {
             string hexstring = System.Text.Encoding.ASCII.GetString(rcvBuffer.AsSpan(0, numOfBytes));
-            Console.WriteLine($"Received: {hexstring}");
+            //Console.WriteLine($"Received: {hexstring}");
 
             var reply_buffer = Hex2Byte(hexstring);
             byte cmd = reply_buffer[2];
@@ -98,8 +98,29 @@ namespace Emulator2
             {
                 handle68(rcvBuffer, numOfBytes);
             }
+            else if (cmd == (byte)Commands.ReadGPSConfig)
+            {
+                handle73(rcvBuffer, numOfBytes);
+            }
+            else if (cmd == (byte)Commands.WriteGPSConfig)
+            {
+                handle74(rcvBuffer, numOfBytes);
+            }
+            else if (cmd == (byte)Commands.TestGPSDevice)
+            {
+                handle75(rcvBuffer, numOfBytes);
+            }
+            else if (cmd == (byte)Commands.TestGPSDevice)
+            {
+                handle75(rcvBuffer, numOfBytes);
+            }
+            else if (cmd == (byte)Commands.FirmwareDownload)
+            {
+                handle121(rcvBuffer, numOfBytes);
+            }
             else
             {
+                Console.WriteLine($"Received: {hexstring}");
                 Console.WriteLine($"UNKNOWN COOMMAND {cmd}");
             }
         }
@@ -136,5 +157,100 @@ namespace Emulator2
             client.Send(Encoding.ASCII.GetBytes(resp));
         }
 
+        void handle73(byte[] rcvBuffer, int numOfBytes)
+        {
+            //ReadGPSConfig
+            string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
+            Console.WriteLine("ReadGPSConfig - Received: {0}", response);
+
+            Thread.Sleep(600);
+
+            var resp = "4000490146B636425CDAB80BCC747B841146AF36393079030000000000000000000000000000000000000000000000000000000000000000000000000000103A";
+            client.Send(Encoding.ASCII.GetBytes(resp));
+        }
+        void handle74(byte[] rcvBuffer, int numOfBytes)
+        {
+            //WriteGPSConfig
+            string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
+            Console.WriteLine("WriteGPSConfig - Received: {0}", response);
+
+            Thread.Sleep(600);
+
+            var resp = "40004A010000803F050003000500000020413C002C011E0000000000000000000000000000000000000000000000000000000000000000000000000000006BA0";
+            client.Send(Encoding.ASCII.GetBytes(resp));
+        }
+        void handle75(byte[] rcvBuffer, int numOfBytes)
+        {
+            //TestGPSDevice
+            string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
+            Console.WriteLine("TestGPSDevice - Received: {0}", response);
+
+            Thread.Sleep(600);
+
+            //var resp = "40004A010000803F050003000500000020413C002C011E0000000000000000000000000000000000000000000000000000000000000000000000000000006BA0";
+            //client.Send(Encoding.ASCII.GetBytes(resp));
+        }
+        void handle121(byte[] rcvBuffer, int numOfBytes) 
+        {
+            //FirmwareUpgradeFTP
+            string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
+            Console.WriteLine("FirmwareUpgradeFTP - Received: {0}", response);
+            Console.WriteLine();
+
+
+            Thread.Sleep(600);
+
+            var rnd = new System.Random();
+            bool failed = rnd.Next(1, 21) < 10;
+
+            if(failed)
+            {
+                Console.WriteLine("FirmwareDownload ok");
+                var data = GenerateCmd121Impl("ok");
+                var resp = BitConverter.ToString(data).Replace("-", "");
+                client.Send(Encoding.ASCII.GetBytes(resp));
+            }
+            else
+            {
+                Console.WriteLine("FirmwareDownload failed");
+                var data = GenerateCmd121Impl("ftp server crushed!");
+                var resp = BitConverter.ToString(data).Replace("-", "");
+                client.Send(Encoding.ASCII.GetBytes(resp));
+            }
+        }
+
+
+        static byte[] GenerateCmd121Impl(string content)
+        {
+            const int packetLength = 256;
+            const byte cmdId = 121;
+            const int maxContentBytes = packetLength - 5; // 253
+
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                throw new Exception("Command 121 must have valid content!");
+            }
+
+            byte[] contentBytes = Encoding.ASCII.GetBytes(content);
+            if (contentBytes.Length > maxContentBytes)
+            {
+                throw new ArgumentException($"Content exceeds {maxContentBytes} bytes.", nameof(content));
+            }
+
+
+            byte[] buffer = new byte[packetLength];
+
+            byte[] cmdBytes = BitConverter.GetBytes(packetLength);
+            Array.Copy(cmdBytes, 0, buffer, 0, 2);      // 2 bytes
+            buffer[2] = cmdId;
+
+            Array.Copy(contentBytes, 0, buffer, 3, contentBytes.Length);
+
+            ushort computedCrc = CRC16.ComputeCrc16(buffer, packetLength - 2);
+            buffer[packetLength - 2] = (byte)computedCrc;
+            buffer[packetLength - 1] = (byte)(computedCrc >> 8);
+
+            return buffer;
+        }
     }
 }

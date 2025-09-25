@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Emulator2
+﻿namespace Emulator2
 {
     public enum Commands : byte
     {
@@ -23,10 +17,14 @@ namespace Emulator2
         WriteFreqCalibrationTable = 70,
         HandlePeripheral = 71,
         PowerDown = 72,
+        ReadGPSConfig = 73,
+        WriteGPSConfig = 74,
+        TestGPSDevice = 75,
         SetupReplyErrorCmd = 89,
         AnalogCmd = 90,
         DigitalCmd = 91,
         RequestVentilationStatusReply = 92,
-        FirmwareUpgrade = 120
+        FirmwareUpgrade = 120,
+        FirmwareDownload = 121
     }
 }
