@@ -155,7 +155,7 @@ namespace Emulator2
             string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
             Console.WriteLine("TestDevice - Received: {0}", response);
 
-            Thread.Sleep(600);
+            Thread.Sleep(12000);
 
             var resp = "3C003E04000301C03A0000FE46D2680075A73441245E554080446E4086C3CC4126E9D64119014C7B2F41D4F1B642D9B0B742EA6AB842AD69B042990B";
             client.Send(Encoding.ASCII.GetBytes(resp));
