@@ -16,7 +16,7 @@ namespace Emulator2
         Socket? m_csocket;
         readonly Object _sync = new object();
         Thread? m_thread;
-        readonly byte[] _rcvBuffer = new byte[2048];
+        readonly byte[] _rcvBuffer = new byte[4096];
         readonly ManualResetEvent m_stopEvent;
         int _disposed = 0;// Whether Dispose has been called.
         Action<byte[], int>? ReceiveDataProcessor;

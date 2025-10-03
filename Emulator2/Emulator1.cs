@@ -129,12 +129,15 @@ namespace Emulator2
             }
         }
 
+        int times = 0;
         void handle60(byte[] rcvBuffer, int numOfBytes)
         {
             string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
             Console.WriteLine("ReadConfigurationProfile - Received: {0}", response);
 
-            Thread.Sleep(2000);
+            if (++times > 4)
+                times = 0;
+            Thread.Sleep(2000 + (times*1000));
 
             var resp = "96003C0D000A0101CDCCCC3F6666E63F00000040CDCCCC3DCDCCCC3DCDCCCC3D0000003FB80B0AD7233CCDCCCC3D0000A040D0078FC2F53C0000A0400000803F1400019A99993E3C00CDCCCC3DCDCCCC3D0600201C0B005A3C000FCDCC0C40D0074006E80332005802B4000000C8009411000501180010270000100032000160090A00FA000101A00F409C64006400C8000301002411";
             client.Send(Encoding.ASCII.GetBytes(resp));
@@ -144,7 +147,7 @@ namespace Emulator2
             string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
             Console.WriteLine("ReadConfigurationProfile - Received: {0}", response);
 
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
 
             var resp = "96003D0D000A0101CDCCCC3F6666E63F00000040CDCCCC3DCDCCCC3DCDCCCC3D0000003FB80B0AD7233CCDCCCC3D0000A040D0078FC2F53C0000A0400000803F1400019A99993E3C00CDCCCC3DCDCCCC3D0600201C0B005A3C000FCDCC0C40D0074006E80332005802B4000000C8009411000501180010270000100032000160090A00FA000101A00F409C64006400C800030100E449";
             client.Send(Encoding.ASCII.GetBytes(resp));
@@ -155,7 +158,7 @@ namespace Emulator2
             string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
             Console.WriteLine("TestDevice - Received: {0}", response);
 
-            Thread.Sleep(12000);
+            //Thread.Sleep(600);
 
             var resp = "3C003E04000301C03A0000FE46D2680075A73441245E554080446E4086C3CC4126E9D64119014C7B2F41D4F1B642D9B0B742EA6AB842AD69B042990B";
             client.Send(Encoding.ASCII.GetBytes(resp));

@@ -8,7 +8,7 @@ namespace Emulator2
 {
     internal class Orchestrator
     {
-        string _svrIP = "192.168.1.105";
+        string _svrIP = "127.0.0.1";
         int _svrPORT = 2001;
         ManualResetEvent quitEvent = new ManualResetEvent(false);
         int _state = 0;
@@ -20,6 +20,7 @@ namespace Emulator2
             Console.WriteLine("\t\t*        1 -> Connect & Listen Cmds"); 
             Console.WriteLine("\t\t*        2 -> Connect & Send packets");
             Console.WriteLine("\t\t*        3 -> Connect & Run scenarios");
+            Console.WriteLine("\t\t*        4 -> Firmware Upgrade");
             Console.WriteLine("\t\t*        Q -> Quit Emulator");
             Console.WriteLine("\t\t*******************************************");
         }
@@ -47,6 +48,10 @@ namespace Emulator2
                 {
                     return "3";
                 }
+                if (input1 == "4")
+                {
+                    return "4";
+                }
             }
         }
 
@@ -69,8 +74,10 @@ namespace Emulator2
                         _state = 1;
                     else if(input == "2")
                         _state = 2;
-                    else
+                    else if (input == "3")
                         _state = 3;
+                    else
+                        _state = 4;
                     continue;
                 }
 
@@ -107,6 +114,19 @@ namespace Emulator2
                     try
                     {
                         var emulator = new Emulator3(_svrIP, _svrPORT);
+                        emulator.Start();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    _state = 0;
+                }
+                if (_state == 4)
+                {
+                    try
+                    {
+                        var emulator = new FirmwareUpgradeEmulator(_svrIP, _svrPORT);
                         emulator.Start();
                     }
                     catch (Exception ex)

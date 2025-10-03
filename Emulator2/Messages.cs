@@ -124,6 +124,39 @@ namespace Emulator2
             }
         }
 
+        public static void SendAck(IoTClient client)
+        {
+            var buffer = new byte[] { 0x06 };
+
+            if (client.IsConnected)
+            {
+                var hexstring = BitConverter.ToString(buffer).Replace("-", "");
+                Console.WriteLine("Sent Ack: {0}", hexstring);
+                client.Send(Encoding.ASCII.GetBytes(hexstring));
+            }
+        }
+        public static void SendNack(IoTClient client)
+        {
+            var buffer = new byte[] { 0x15 };
+
+            if (client.IsConnected)
+            {
+                var hexstring = BitConverter.ToString(buffer).Replace("-", "");
+                Console.WriteLine("Sent Nack: {0}", hexstring);
+                client.Send(Encoding.ASCII.GetBytes(hexstring));
+            }
+        }
+        public static void SendInitiation(IoTClient client)
+        {
+            var buffer = new byte[] { 0x43 };
+
+            if (client.IsConnected)
+            {
+                var hexstring = BitConverter.ToString(buffer).Replace("-", "");
+                Console.WriteLine("Sent Nack: {0}", hexstring);
+                client.Send(Encoding.ASCII.GetBytes(hexstring));
+            }
+        }
 
 
     }
