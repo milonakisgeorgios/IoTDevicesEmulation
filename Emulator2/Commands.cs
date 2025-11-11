@@ -20,11 +20,11 @@
         ReadGPSConfig = 73,
         WriteGPSConfig = 74,
         TestGPSDevice = 75,
+        FirmwareDownload = 76,
         SetupReplyErrorCmd = 89,
         AnalogCmd = 90,
         DigitalCmd = 91,
         RequestVentilationStatusReply = 92,
-        FirmwareUpgrade = 120,
-        FirmwareDownload = 121
+        FirmwareUpgrade = 120
     }
 }

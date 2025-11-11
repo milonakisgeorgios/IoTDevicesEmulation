@@ -86,6 +86,48 @@ namespace Emulator2
             buffer[buffer.Length - 1] = (byte)(crc >> 8);                               // High byte of CRC
             return buffer;
         }
+        static byte[] GetDelimiter15Packet(short packetID, DateTime recordedTime, TrackData values)
+        {
+            var buffer = GetBuffer(delimiter: 15, needsAck: false, length: 64, packetID: packetID, recordedTime: recordedTime, ms: 0);
+
+
+            int index = 8;
+
+            Array.Copy(BitConverter.GetBytes(values.Latitude), 0, buffer, index, 8);
+            index += 8;
+            Array.Copy(BitConverter.GetBytes(values.Longitude), 0, buffer, index, 8);
+            index += 8;
+            Array.Copy(BitConverter.GetBytes(values.Altitude), 0, buffer, index, 4);
+            index += 4;
+            Array.Copy(BitConverter.GetBytes(values.Speed), 0, buffer, index, 4);
+            index += 4;
+            buffer[index++] = values.GPS_Satellites;
+            buffer[index++] = values.GLONASS_Satellites;
+            buffer[index++] = values.BeiDou_Satellites;
+            buffer[index++] = values.NS_Indicator;
+            buffer[index++] = values.EW_Indicator;
+            Array.Copy(BitConverter.GetBytes(values.Course), 0, buffer, index, 4);
+            index += 4;
+            Array.Copy(BitConverter.GetBytes(values.PDPOP), 0, buffer, index, 4);
+            index += 4;
+            Array.Copy(BitConverter.GetBytes(values.HDPOP), 0, buffer, index, 4);
+            index += 4;
+            Array.Copy(BitConverter.GetBytes(values.VDPOP), 0, buffer, index, 4);
+            index += 4;
+            buffer[index++] = values.Fix_Mode;
+            buffer[index++] = values.Galileo_Satellites;
+            buffer[index++] = values.Valid_Satellites;
+            buffer[index++] = values.Valid_Fix;
+            Array.Copy(BitConverter.GetBytes(values.GNSS_Epoch), 0, buffer, index, 4);
+            index += 4;
+            buffer[index++] = values.GNSS_Ms;
+
+
+            ushort crc = CRC16.ComputeCrc16(buffer, buffer.Length - 2);
+            buffer[buffer.Length - 2] = (byte)crc;                                      // Low byte of CRC
+            buffer[buffer.Length - 1] = (byte)(crc >> 8);                               // High byte of CRC
+            return buffer;
+        }
 
 
         public static void SendDelim1(IoTClient client, short packetID, DateTime recordedTime, byte sensorType = 0, byte sensorNumber = 0, UInt16 value = 100)
@@ -99,8 +141,6 @@ namespace Emulator2
                 client.Send(Encoding.ASCII.GetBytes(hexstring));
             }
         }
-
-
         public static void SendDelim2(IoTClient client, short packetID, DateTime recordedTime, byte sensorType = 0, byte sensorNumber = 0, byte value = 0)
         {
             var buffer = GetDelim2Packet(packetID, recordedTime, sensorType, sensorNumber, value);
@@ -123,6 +163,19 @@ namespace Emulator2
                 client.Send(Encoding.ASCII.GetBytes(hexstring));
             }
         }
+
+        public static void SendDelim15(IoTClient client, short packetID, DateTime recordedTime)
+        {
+            var buffer = GetDelimiter15Packet(packetID, recordedTime, new TrackData(true));
+
+            if (client.IsConnected)
+            {
+                var hexstring = BitConverter.ToString(buffer).Replace("-", "");
+                Console.WriteLine("Sent: {0}", hexstring);
+                client.Send(Encoding.ASCII.GetBytes(hexstring));
+            }
+        }
+
 
         public static void SendAck(IoTClient client)
         {

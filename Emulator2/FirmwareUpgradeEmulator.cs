@@ -128,7 +128,7 @@ namespace Emulator2
             else
             {
                 Console.WriteLine($"Packet Number = {secondByte}");
-                //Thread.Sleep(100);
+                Thread.Sleep(100);
 
                 //var sendACK = _random.Next(1, 20) > 6;
                 //if (sendACK)

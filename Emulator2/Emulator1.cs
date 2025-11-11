@@ -27,6 +27,7 @@ namespace Emulator2
             Console.WriteLine("\t\t*        A -> Send Delim1 Packet");
             Console.WriteLine("\t\t*        S -> Send Delim2 Packet");
             Console.WriteLine("\t\t*        D -> Send Delim3 Packet");
+            Console.WriteLine("\t\t*        Ε -> Send Delim15 Packet");
             Console.WriteLine("\t\t*");
             Console.WriteLine("\t\t*        Q -> Disconect & Return");
             Console.WriteLine("\t\t********************************************");
@@ -44,22 +45,26 @@ namespace Emulator2
                 var input1 = Console.ReadKey(true).KeyChar.ToString().ToUpperInvariant();
 
                 Console.Clear();
-                if (input1 == "Q")
+                if (input1 == "Q" || input1=="q")
                 {
                     client.Stop();
                     break;
                 }
-                if(input1 == "A")
+                if(input1 == "A" || input1 == "a")
                 {
                     Messages.SendDelim1(client, _packetId++, DateTime.Now);
                 }
-                if (input1 == "S")
+                if (input1 == "S" || input1 == "s")
                 {
                     Messages.SendDelim2(client, _packetId++, DateTime.Now);
                 }
-                if (input1 == "D")
+                if (input1 == "D" || input1 == "d")
                 {
                     Messages.SendDelim3(client, _packetId++, DateTime.Now);
+                }
+                if (input1 == "E" || input1 == "e")
+                {
+                    Messages.SendDelim15(client, _packetId++, DateTime.Now);
                 }
             }
         }
@@ -114,13 +119,9 @@ namespace Emulator2
             {
                 handle75(rcvBuffer, numOfBytes);
             }
-            else if (cmd == (byte)Commands.TestGPSDevice)
-            {
-                handle75(rcvBuffer, numOfBytes);
-            }
             else if (cmd == (byte)Commands.FirmwareDownload)
             {
-                handle121(rcvBuffer, numOfBytes);
+                handle76(rcvBuffer, numOfBytes);
             }
             else
             {
@@ -129,15 +130,13 @@ namespace Emulator2
             }
         }
 
-        int times = 0;
+
         void handle60(byte[] rcvBuffer, int numOfBytes)
         {
             string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
             Console.WriteLine("ReadConfigurationProfile - Received: {0}", response);
 
-            if (++times > 4)
-                times = 0;
-            Thread.Sleep(2000 + (times*1000));
+            Thread.Sleep(600);
 
             var resp = "96003C0D000A0101CDCCCC3F6666E63F00000040CDCCCC3DCDCCCC3DCDCCCC3D0000003FB80B0AD7233CCDCCCC3D0000A040D0078FC2F53C0000A0400000803F1400019A99993E3C00CDCCCC3DCDCCCC3D0600201C0B005A3C000FCDCC0C40D0074006E80332005802B4000000C8009411000501180010270000100032000160090A00FA000101A00F409C64006400C8000301002411";
             client.Send(Encoding.ASCII.GetBytes(resp));
@@ -145,9 +144,9 @@ namespace Emulator2
         void handle61(byte[] rcvBuffer, int numOfBytes)
         {
             string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
-            Console.WriteLine("ReadConfigurationProfile - Received: {0}", response);
+            Console.WriteLine("WriteConfigurationProfile - Received: {0}", response);
 
-            Thread.Sleep(3000);
+            Thread.Sleep(600);
 
             var resp = "96003D0D000A0101CDCCCC3F6666E63F00000040CDCCCC3DCDCCCC3DCDCCCC3D0000003FB80B0AD7233CCDCCCC3D0000A040D0078FC2F53C0000A0400000803F1400019A99993E3C00CDCCCC3DCDCCCC3D0600201C0B005A3C000FCDCC0C40D0074006E80332005802B4000000C8009411000501180010270000100032000160090A00FA000101A00F409C64006400C800030100E449";
             client.Send(Encoding.ASCII.GetBytes(resp));
@@ -158,15 +157,15 @@ namespace Emulator2
             string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
             Console.WriteLine("TestDevice - Received: {0}", response);
 
-            //Thread.Sleep(600);
+            Thread.Sleep(600);
 
-            var resp = "3C003E04000301C03A0000FE46D2680075A73441245E554080446E4086C3CC4126E9D64119014C7B2F41D4F1B642D9B0B742EA6AB842AD69B042990B";
+            var resp = "57003E0D000C015898000063ADE368170F3852404094D2410000000000000000DD81C5412A2BC741096B0A4000000000000000000000000014721E3DBE9A193D000001010000001C00D003000049090000A0820000249F";
             client.Send(Encoding.ASCII.GetBytes(resp));
         }
         void handle68(byte[] rcvBuffer, int numOfBytes)
         {
             string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
-            Console.WriteLine("TestDevice - Received: {0}", response);
+            Console.WriteLine("TestNoiseFrequency - Received: {0}", response);
 
             Thread.Sleep(600);
 
@@ -204,10 +203,11 @@ namespace Emulator2
 
             Thread.Sleep(600);
 
-            //var resp = "40004A010000803F050003000500000020413C002C011E0000000000000000000000000000000000000000000000000000000000000000000000000000006BA0";
-            //client.Send(Encoding.ASCII.GetBytes(resp));
+            var resp = "781E4B1F43F76800D0D556EC2FE3424050FC1873D79A5EC000004A4233332341080604000100003443000020406666E63F9A99993F0305170134AB0869008D36";
+            //var resp = "40004B87890869005D1EC6FF78FB424011983DBFDEBB37403333D3420E2D6A401007FF00000000C54233337340000040408FC2154003030D0180890869000667";
+            client.Send(Encoding.ASCII.GetBytes(resp));
         }
-        void handle121(byte[] rcvBuffer, int numOfBytes) 
+        void handle76(byte[] rcvBuffer, int numOfBytes) 
         {
             //FirmwareUpgradeFTP
             string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
@@ -223,29 +223,29 @@ namespace Emulator2
             if(failed)
             {
                 Console.WriteLine("FirmwareDownload ok");
-                var data = GenerateCmd121Impl("ok");
+                var data = GenerateCmd76Impl("ok");
                 var resp = BitConverter.ToString(data).Replace("-", "");
                 client.Send(Encoding.ASCII.GetBytes(resp));
             }
             else
             {
                 Console.WriteLine("FirmwareDownload failed");
-                var data = GenerateCmd121Impl("ftp server crushed!");
+                var data = GenerateCmd76Impl("ftp server crushed!");
                 var resp = BitConverter.ToString(data).Replace("-", "");
                 client.Send(Encoding.ASCII.GetBytes(resp));
             }
         }
 
 
-        static byte[] GenerateCmd121Impl(string content)
+        static byte[] GenerateCmd76Impl(string content)
         {
-            const int packetLength = 256;
-            const byte cmdId = 121;
-            const int maxContentBytes = packetLength - 5; // 253
+            const int packetLength = 255;
+            const byte cmdId = 76;
+            const int maxContentBytes = packetLength - 5; // 250
 
             if (string.IsNullOrWhiteSpace(content))
             {
-                throw new Exception("Command 121 must have valid content!");
+                throw new Exception("Command 76 must have valid content!");
             }
 
             byte[] contentBytes = Encoding.ASCII.GetBytes(content);
