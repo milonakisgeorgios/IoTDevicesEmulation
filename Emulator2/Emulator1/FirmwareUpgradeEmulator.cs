@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Emulator2.Emulators;
 
 namespace Emulator2
 {
-    internal class FirmwareUpgradeEmulator
+    internal class FirmwareUpgradeEmulator : EmulatorBase
     {
-        string _serverIP;
-        int _serverPort;
         short _packetId = 1;
-        IoTClient client = null;
+        IoTClient client = null!;
+        private volatile bool _shouldStop = false;
+        private readonly object _lock = new object();
         System.Random _random = new System.Random();
 
-        public FirmwareUpgradeEmulator(string serverIP, int serverPort)
+
+        string ServerIP => Globals.ServerConfiguration.RemoteIP;
+        int ServerPort => Globals.ServerConfiguration.RemotePort;
+
+
+        public FirmwareUpgradeEmulator()
         {
-            _serverIP = serverIP;
-            _serverPort = serverPort;
+
         }
 
         void PrintMenu()
@@ -33,43 +33,59 @@ namespace Emulator2
 
         public void Start()
         {
-            client = new IoTClient(_serverIP, _serverPort, this.ProcessReceivedData);
-            client.Connect();
-
-            while (true)
+            // Συνδεομαστε στον Server
+            client = new IoTClient(ServerIP, ServerPort, this.ProcessReceivedData, this.OnDisconnected);
+            if (!client.Connect())
             {
-                PrintMenu();
-                var input1 = Console.ReadKey(true).KeyChar.ToString().ToUpperInvariant();
-
-                Console.Clear();
-                if (input1 == "Q")
-                {
-                    client.Stop();
-                    break;
-                }
-                if (input1 == "N" || input1 == "Ν")
-                {
-                    Messages.SendNack(client);
-                }
-                if (input1 == "A" || input1 == "Α")
-                {
-                    Messages.SendAck(client);
-                }
+                Console.WriteLine("Connection failed!");
+                Console.WriteLine("Press a key to continue...");
+                Console.ReadKey(true);  // true = intercept (key is not displayed)
+                return;
             }
+
+            PrintMenu();
+            while (!_shouldStop)
+            {
+                if (Console.KeyAvailable)
+                {
+                    var key = Console.ReadKey(intercept: true).KeyChar;
+                    char upper = char.ToUpperInvariant(key);
+
+                    if (upper == 'Q')
+                    {
+                        StopClientAndExit();
+                        break;
+                    }
+                    if (upper == 'N') Messages.SendNack(client);
+                    if (upper == 'A') Messages.SendAck(client);
+
+                    //Console.Clear();
+                    PrintMenu();
+                }
+
+                Thread.Sleep(50);
+            }
+
+            Console.WriteLine("Press a key to continue...");
+            Console.ReadKey(true);  // true = intercept (key is not displayed)
         }
 
-
-        public static byte[] Hex2Byte(string hex)
+        private void OnDisconnected()
         {
-            List<byte> bytes = new List<byte>();
-            for (int i = 0; i < hex.Length; i += 2)
-            {
-                string byteString = hex.Substring(i, 2);
-                byte byteValue = Convert.ToByte(byteString, 16);
-                bytes.Add(byteValue);
-            }
-            return bytes.ToArray();
+            Console.WriteLine("\n[Server disconnected!]");
+            StopClientAndExit();
         }
+        private void StopClientAndExit()
+        {
+            lock (_lock)
+            {
+                if (_shouldStop) return;
+                _shouldStop = true;
+            }
+
+            client?.Stop();
+        }
+
 
 
         bool firstPacketReceived = false;
@@ -88,7 +104,7 @@ namespace Emulator2
 
             if (thirdByte == (byte)Commands.FirmwareUpgrade)
             {
-                handle120(hexstring, rcv_buffer, rcv_buffer.Length);
+                CommandHandlersFW13.handle120(client, rcv_buffer, rcv_buffer.Length, hexstring);
 
                 Thread.Sleep(2000);
                 Console.WriteLine("Send Initial NACK");
@@ -96,7 +112,7 @@ namespace Emulator2
             }
             else if (rcv_buffer.Length == 133 && firstByte == 0x01)
             {
-                if(firstPacketReceived == false)
+                if (firstPacketReceived == false)
                 {
                     //START
                     Console.WriteLine("RECEIVED FILE HEADER");
@@ -110,12 +126,17 @@ namespace Emulator2
                 else
                 {
                     //END
-                    client.Stop();
                     Console.WriteLine("Firmware Upgrade Finished!");
                     firstPacketReceived = false;
+                    client.Stop();
+
+                    //Κλεινουμε και φευγουμε απο το emulation
+                    Thread.Sleep(500);
+                    client = null!;
+                    StopClientAndExit();
                 }
             }
-            else if(rcv_buffer.Length == 1 && firstByte == 4)
+            else if (rcv_buffer.Length == 1 && firstByte == 4)
             {
                 Console.WriteLine("RECEIVED X_EOT");
                 Messages.SendAck(client);
@@ -132,29 +153,12 @@ namespace Emulator2
 
                 //var sendACK = _random.Next(1, 20) > 6;
                 //if (sendACK)
-                    Messages.SendAck(client);
+                Messages.SendAck(client);
                 //else
                 //    Messages.SendNack(client);
 
             }
 
-        }
-
-
-        void handle120(string hexstring, byte[] rcvBuffer, int numOfBytes)
-        {
-            string response = Encoding.UTF8.GetString(rcvBuffer, 0, numOfBytes);
-            Console.WriteLine("Firmware Upgrade - Received: {0}", hexstring);
-
-            Thread.Sleep(1200);
-
-
-            if (client.IsConnected)
-            {
-                var _hexstring = BitConverter.ToString(rcvBuffer).Replace("-", "");
-                Console.WriteLine("Sent: {0}", _hexstring);
-                client.Send(Encoding.ASCII.GetBytes(_hexstring));
-            }
         }
     }
 }

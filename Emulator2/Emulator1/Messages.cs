@@ -134,7 +134,7 @@ namespace Emulator2
         {
             var buffer = GetDelim1Packet(packetID, recordedTime, sensorType, sensorNumber, value);
 
-            if(client.IsConnected)
+            if (client.IsConnected)
             {
                 var hexstring = BitConverter.ToString(buffer).Replace("-", "");
                 Console.WriteLine("Sent: {0}", hexstring);

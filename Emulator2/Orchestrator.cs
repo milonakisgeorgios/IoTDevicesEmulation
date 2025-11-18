@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Emulator2
+﻿namespace Emulator2
 {
     internal class Orchestrator
     {
@@ -17,10 +11,9 @@ namespace Emulator2
         void PrintInitialMenu()
         {
             Console.WriteLine("\t\t*******************************************");
-            Console.WriteLine("\t\t*        1 -> Connect & Listen Cmds"); 
-            Console.WriteLine("\t\t*        2 -> Connect & Send packets");
-            Console.WriteLine("\t\t*        3 -> Connect & Run scenarios");
-            Console.WriteLine("\t\t*        4 -> Firmware Upgrade");
+            Console.WriteLine("\t\t*        1 -> Connect & Listen Cmds & Send packets");
+            Console.WriteLine("\t\t*        2 -> Connect & Run scenarios");
+            Console.WriteLine("\t\t*        3 -> Firmware Upgrade");
             Console.WriteLine("\t\t*        Q -> Quit Emulator");
             Console.WriteLine("\t\t*******************************************");
         }
@@ -65,30 +58,28 @@ namespace Emulator2
             while (true)
             {
                 Console.Clear();
-                if(_state == 0)
+                if (_state == 0)
                 {
                     var input = InitialMenuLoop();
                     if (input == "Q")
                         break;
                     if (input == "1")
                         _state = 1;
-                    else if(input == "2")
+                    else if (input == "2")
                         _state = 2;
-                    else if (input == "3")
-                        _state = 3;
                     else
-                        _state = 4;
+                        _state = 3;
                     continue;
                 }
 
-                if(_state == 1)
+                if (_state == 1)
                 {
                     try
                     {
-                        var emulator = new Emulator1(_svrIP, _svrPORT);
+                        var emulator = new Emulator1();
                         emulator.Start();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -108,25 +99,11 @@ namespace Emulator2
                     }
                     _state = 0;
                 }
-
                 if (_state == 3)
                 {
                     try
                     {
-                        var emulator = new Emulator3(_svrIP, _svrPORT);
-                        emulator.Start();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                    _state = 0;
-                }
-                if (_state == 4)
-                {
-                    try
-                    {
-                        var emulator = new FirmwareUpgradeEmulator(_svrIP, _svrPORT);
+                        var emulator = new FirmwareUpgradeEmulator();
                         emulator.Start();
                     }
                     catch (Exception ex)

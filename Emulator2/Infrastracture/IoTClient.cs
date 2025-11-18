@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Emulator2
 {
@@ -20,6 +15,7 @@ namespace Emulator2
         readonly ManualResetEvent m_stopEvent;
         int _disposed = 0;// Whether Dispose has been called.
         Action<byte[], int>? ReceiveDataProcessor;
+        Action DisconnectedHandler;
 
 
 
@@ -65,11 +61,13 @@ namespace Emulator2
         /// <param name="serverIP"></param>
         /// <param name="serverPort"></param>
         /// <param name="processor"></param>
-        public IoTClient(string serverIP, int serverPort, Action<byte[], int> processor)
+        /// <param name="disconectHandler"></param>
+        public IoTClient(string serverIP, int serverPort, Action<byte[], int> processor, Action disconectHandler)
         {
             this.serverIP = serverIP;
             this.serverPort = serverPort;
             this.ReceiveDataProcessor = processor;
+            this.DisconnectedHandler = disconectHandler;
 
             m_stopEvent = new ManualResetEvent(false);
         }
@@ -149,7 +147,7 @@ namespace Emulator2
         }
 
 
-        public void Connect()
+        public bool Connect()
         {
             ThrowIfDisposed();
             _CloseAndInitialize();
@@ -175,17 +173,19 @@ namespace Emulator2
                     m_thread.Name = "_ReceiveLoop";
                     m_thread.Start();
                 }
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+            return false;
         }
 
 
         public void Stop()
         {
-            Console.WriteLine($"Stop()");
+            Console.WriteLine($"IoTClient.Stop()");
 
             ThrowIfDisposed();
 
@@ -210,13 +210,9 @@ namespace Emulator2
         /// <param name="errorcode"></param>
         void Disconnect(bool invokeEvent = false, int errorcode = 0)
         {
-            if (Thread.CurrentThread.IsThreadPoolThread)
-                Console.WriteLine($"Disconnect() called by ThreadPoolThread (Id = {Thread.CurrentThread.ManagedThreadId}).");
-            else
-                Console.WriteLine($"Disconnect() called by '{Thread.CurrentThread.Name}'.");
-
             if (m_csocket != null)
             {
+                Console.WriteLine($"IoTClient.Disconnect()");
                 lock (_sync)
                 {
                     if (m_csocket != null)
@@ -260,11 +256,10 @@ namespace Emulator2
 
                         m_csocket = null;
 
+                        Console.WriteLine($"IoTClient Disconnected");
 
-                        if (Thread.CurrentThread.IsThreadPoolThread)
-                            Console.WriteLine($"Disconnected..... by ThreadPoolThread (Id = {Thread.CurrentThread.ManagedThreadId}).");
-                        else
-                            Console.WriteLine($"Disconnected..... by '{Thread.CurrentThread.Name}'.");
+                        if (invokeEvent)
+                            this.DisconnectedHandler?.Invoke();
                     }
                 }
             }
@@ -292,7 +287,7 @@ namespace Emulator2
 
                     if (numOfBytes > 0)
                     {
-                        if(this.ReceiveDataProcessor != null)
+                        if (this.ReceiveDataProcessor != null)
                         {
                             this.ReceiveDataProcessor.Invoke(_rcvBuffer, numOfBytes);
                         }
@@ -312,15 +307,15 @@ namespace Emulator2
             }
             catch (SocketException ex)
             {
-                Console.WriteLine(string.Format("_ReceiveLoop() -> ErrorCode= {0}, Message = {1}", ex.ErrorCode, ex.Message));
+                //Console.WriteLine(string.Format("_ReceiveLoop() -> ErrorCode= {0}, Message = {1}", ex.ErrorCode, ex.Message));
             }
             catch (ObjectDisposedException ex)
             {
-                Console.WriteLine(string.Format("_ReceiveLoop() -> {0}", ex.Message));
+                //Console.WriteLine(string.Format("_ReceiveLoop() -> {0}", ex.Message));
             }
             catch (Exception ex)
             {
-                Console.WriteLine(string.Format("_ReceiveLoop() -> {0}", ex.Message));
+                //Console.WriteLine(string.Format("_ReceiveLoop() -> {0}", ex.Message));
             }
 
             Disconnect(invokeEvent: true, errorcode: 0);
@@ -331,7 +326,7 @@ namespace Emulator2
 
         public void Send(byte[] packetData)
         {
-            if(this.m_csocket!= null)
+            if (this.m_csocket != null)
             {
                 this.m_csocket.Send(packetData);
             }

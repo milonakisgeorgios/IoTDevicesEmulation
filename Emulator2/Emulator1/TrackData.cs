@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Emulator2
+﻿namespace Emulator2
 {
     internal class TrackData
     {
@@ -101,7 +94,7 @@ namespace Emulator2
 
         public TrackData(bool random = false)
         {
-            if(random)
+            if (random)
             {
                 Random rnd = new Random();
 
